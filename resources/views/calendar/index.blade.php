@@ -41,20 +41,20 @@
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                         <label for="statut">Statut:</label>
-                        <select id="statut" class="form-control" name="" id="">
+                        <select id="statut" class="form-control" name="status" id="">
                             <option value="closed">Fermé</option>
                             <option value="pending">En cours</option>
                             <option value="waiting">En attente</option>
                             <option value="canceled">Annulé</option>
                         </select>
                         <label for="description">Accès:</label>
-                        <select class="form-control" name="" id="">
+                        <select class="form-control" name="access" id="">
                             <option value="public">Public</option>
                             <option value="readonly">Lecture seulement</option>
                             <option value="private">Privé</option>
                         </select>
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                               Prioritaire
                             </label>
@@ -62,8 +62,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Créer</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-success" data-dismiss="modal">Créer</button>
+                    <button type="clear" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                 </div>
             </form>
         </div>
