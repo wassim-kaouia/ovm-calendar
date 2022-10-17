@@ -20,8 +20,56 @@
 
 @section('content')
 <div class="container">
-
-    <div id="calendar"></div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                  Controle
+                </div>
+                <div class="card-body">
+                    <div>
+                        <label for="title">Titre:</label>
+                        <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
+                        <label for="title">Assigné par:</label>
+                        <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                        <label for="title">Date de Rendez-vous:</label>
+                        <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
+                        <label for="title">Coleur de Rendez-vous:</label>
+                        <input class="form-control" type="color" name="color" id="color">
+                        <label for="title">Coleur de Texte de Rendez-vous:</label>
+                        <input class="form-control" type="color" name="textColor" id="textColor">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                        <label for="statut">Statut:</label>
+                        <select id="statut" class="form-control" name="status" id="">
+                            <option value="closed">Fermé</option>
+                            <option value="pending">En cours</option>
+                            <option value="waiting">En attente</option>
+                            <option value="canceled">Annulé</option>
+                        </select>
+                        <label for="description">Accès:</label>
+                        <select class="form-control" name="access" id="">
+                            <option value="public">Public</option>
+                            <option value="readonly">Lecture seulement</option>
+                            <option value="private">Privé</option>
+                        </select>
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                            Prioritaire 
+                            </label>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-success btn-lg btn-block" data-dismiss="modal">Créer</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
 </div>
 
 
@@ -37,7 +85,11 @@
                         <label for="title">Assigné par:</label>
                         <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
                         <label for="title">Date de Rendez-vous:</label>
-                        <input class="form-control datepicker" type="text" name="rdv" data-provide="datepicker">
+                        <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
+                        <label for="title">Coleur de Rendez-vous:</label>
+                        <input class="form-control" type="color" name="color" id="color">
+                        <label for="title">Coleur de Texte de Rendez-vous:</label>
+                        <input class="form-control" type="color" name="textColor" id="textColor">
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                         <label for="statut">Statut:</label>
@@ -63,12 +115,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" data-dismiss="modal">Créer</button>
-                    <button type="clear" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 @endsection
 
@@ -86,21 +138,43 @@
             );
             //activate fullcalendar and edit its attributes
             var calendar = $('#calendar').fullCalendar({
-                locale: 'pt',
                 editable:true,
+                selectable: true,
                 header:{
                     left:'prev,next,today',
                     center:'title',
                     right:'month,agendaWeek,agendaDay',
                 },
-
-                events:'/calendar',
+                events:'{{ route('full.calendar') }}',
                 selectHelper:false,
-                dayClick:function(rdv,allDay){
-                    console.log('clicked');
-                    var rdv = $.fullCalendar.formatDate(rdv,'Y-MM-DD HH:mm:ss');
+                dayClick:function(date,event,view){
+                    var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm:ss');
+                    document.getElementById('start').value = start;
                     $('#calendarModal').modal("show");
-                    console.log();
+                    
+                    console.log('prompted');
+                },
+                eventClick:function(event){
+                    console.log('event opened!'+event.id);
+                    var dataFromDB;
+                    $.ajax({
+                        url:'{{ url("/getEventById") }}'+"/"+event.id,
+                        type:'GET',
+                        success: function(data){
+                            console.log(data.id);
+                            $('#title').val(data.title);
+                            $('#color').val(data.color);
+                            $('#textColor').val(data.textColor);
+                            $('#description').val(data.description);
+                            $('#status').val(data.status);
+                            $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm:ss'));
+                           
+                        },
+                        error:function(error){
+                            console.log(error);
+                        },
+                    }
+                    );
                 },
             });
 

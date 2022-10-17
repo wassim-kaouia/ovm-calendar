@@ -8,6 +8,7 @@
     @yield('jscss-urls')
 </head>
 <body>
+@include('sweetalert::alert')
 @yield('content')  
    
 @yield('js')

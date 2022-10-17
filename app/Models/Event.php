@@ -11,11 +11,16 @@ class Event extends Model
 
     protected $fillable = [
         'title',
-        'rdv',
+        'start',
+        'end',
+        'task_id',
+        'user_id',
         'description',
         'status',
         'access',
         'priority',
+        'color',
+        'textColor',
         'note'
     ];
 

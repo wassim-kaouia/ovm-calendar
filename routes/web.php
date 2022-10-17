@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('calendar.index');
 });
 
-Route::get('/calendar',[EventController::class,'index'])->name('calendar.index');
+Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar');
 Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post');
+Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event');
 
 Auth::routes();
 
