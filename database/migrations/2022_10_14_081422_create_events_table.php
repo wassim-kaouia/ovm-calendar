@@ -14,14 +14,14 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->foreignId('task_id');
             $table->foreignId('user_id');
             $table->text('description')->nullable();
+            $table->string('phone_client');
+            $table->string('name_client');
             $table->string('status');
-            $table->string('access');
             $table->string('priority');
-            $table->string('color');
-            $table->string('textColor');
+            $table->string('color')->nullable();
+            $table->string('textColor')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

@@ -17,27 +17,29 @@ class EventController extends Controller
 
     public function eventCreate(Request $request){
         if($request){
-            Event::create([
+            $event = Event::create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'start' => $request->start,
                 'end'  => $request->start,
-                'task_id' => Auth()->user()->id,
-                'user_id' => Auth()->user()->id,
+                'user_id' => auth()->user()->id,
                 'status' => $request->status,
-                'access' => $request->access,
                 'priority' => 'priority',
-                'color' => $request->color,
-                'textColor' => $request->textColor,
+                'color' => auth()->user()->color,
+                'textColor' => auth()->user()->textColor,
                 'note' => $request->note,
             ]);
-            Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
+            if($event){
+                Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
+            }else{
+                Alert::error('Création de rendez-vous', 'un probleme est survenu !');
+            }
             return redirect()->back();
         }
     }
 
     public function getEventById(Request $request,$id){
-        $data = Event::where('id','=',$id)->first();
+        $data = Event::where('id','=',$id)->with('user')->first();
         return response()->json($data,200);
     }
 }

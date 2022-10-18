@@ -61,6 +61,22 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="color" class="col-md-4 col-form-label text-md-end">{{ __('Color') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="color" type="color" class="form-control" name="color" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="textColor" class="col-md-4 col-form-label text-md-end">{{ __('Text Color') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="textColor" type="color" class="form-control" name="textColor" required>
+                            </div>
+                        </div>
+                        <input type="hidden" value="vendor" name="role" id="role">
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

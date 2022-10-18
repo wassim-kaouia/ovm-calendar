@@ -29,7 +29,18 @@
                 <div class="card-header">
                   Controle
                 </div>
+                
                 <div class="card-body">
+                    <div>
+                        
+                        <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
+                        <label>Nom Client : <b class="nameClient"></b></label><br>
+                        <label>Numero Client : <b class="phoneClient"></b></label><br>
+                        <label>Description : <p class="description"></p></label><br>
+                        <label>Créé par : <b class="createdBy"></b> </label><br>
+                        <label>Role d'employé : <b class="roleEmployee"></b> </label><br>
+                        <label>Date de création : <b class="createdAt"></b></label><br><br>
+                    </div>
                     <div>
                         <label for="title">Titre:</label>
                         <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
@@ -38,9 +49,9 @@
                         <label for="title">Date de Rendez-vous:</label>
                         <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
                         <label for="title">Coleur de Rendez-vous:</label>
-                        <input class="form-control" type="color" name="color" id="color">
+                        <input class="form-control" type="color" name="color" id="color" disabled>
                         <label for="title">Coleur de Texte de Rendez-vous:</label>
-                        <input class="form-control" type="color" name="textColor" id="textColor">
+                        <input class="form-control" type="color" name="textColor" id="textColor" disabled>
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                         <label for="statut">Statut:</label>
@@ -50,20 +61,19 @@
                             <option value="waiting">En attente</option>
                             <option value="canceled">Annulé</option>
                         </select>
-                        <label for="description">Accès:</label>
-                        <select class="form-control" name="access" id="">
-                            <option value="public">Public</option>
-                            <option value="readonly">Lecture seulement</option>
-                            <option value="private">Privé</option>
-                        </select>
                         <div class="form-check mt-4">
                             <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                             Prioritaire 
                             </label>
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-success btn-lg btn-block" data-dismiss="modal">Créer</button>
+                        <div class="row mt-4">
+                            <div class="col-md-6 col-sm-6">
+                                <button type="submit" class="btn btn-success" data-dismiss="modal">Mettre a jour</button>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="submit" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,28 +92,22 @@
                     <div>
                         <label for="title">Titre:</label>
                         <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
-                        <label for="title">Assigné par:</label>
+                        <label for="assignedBy">Assigné par:</label>
                         <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
-                        <label for="title">Date de Rendez-vous:</label>
+                        <label for="start">Date de Rendez-vous:</label>
                         <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
-                        <label for="title">Coleur de Rendez-vous:</label>
-                        <input class="form-control" type="color" name="color" id="color">
-                        <label for="title">Coleur de Texte de Rendez-vous:</label>
-                        <input class="form-control" type="color" name="textColor" id="textColor">
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                        <label for="phone_client">Numero De Client:</label>
+                        <input id="phone_client" class="form-control" type="text" name="phone_client">
+                        <label for="name_client">Titre:</label>
+                        <input id="title" class="form-control" type="text" name="name_client">
                         <label for="statut">Statut:</label>
                         <select id="statut" class="form-control" name="status" id="">
                             <option value="closed">Fermé</option>
                             <option value="pending">En cours</option>
                             <option value="waiting">En attente</option>
                             <option value="canceled">Annulé</option>
-                        </select>
-                        <label for="description">Accès:</label>
-                        <select class="form-control" name="access" id="">
-                            <option value="public">Public</option>
-                            <option value="readonly">Lecture seulement</option>
-                            <option value="private">Privé</option>
                         </select>
                         <div class="form-check mt-4">
                             <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
@@ -148,7 +152,7 @@
                 events:'{{ route('full.calendar') }}',
                 selectHelper:false,
                 dayClick:function(date,event,view){
-                    var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm:ss');
+                    var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm');
                     document.getElementById('start').value = start;
                     $('#calendarModal').modal("show");
                     
@@ -161,14 +165,20 @@
                         url:'{{ url("/getEventById") }}'+"/"+event.id,
                         type:'GET',
                         success: function(data){
-                            console.log(data.id);
+                            console.log(data);
                             $('#title').val(data.title);
                             $('#color').val(data.color);
                             $('#textColor').val(data.textColor);
                             $('#description').val(data.description);
+                            $('.description').text(data.description);
                             $('#status').val(data.status);
-                            $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm:ss'));
-                           
+                            $('.nameOfEmployee').text(data.user.name);
+                            $('.roleEmployee').text(data.user.role);
+                            $('.createdBy').text(data.user.name);
+                            $('.nameClient').text(data.name_client);
+                            $('.phoneClient').text(data.phone_client);
+                            $('.createdAt').text(moment(data.created_at).format('Y-MM-DD HH:mm'));
+                            $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         },
                         error:function(error){
                             console.log(error);
