@@ -1,3 +1,4 @@
+{{-- @extends('layouts.app') --}}
 @extends('layout.master')
 
 @section('jscss-urls')
@@ -82,7 +83,6 @@
     </div>
 </div>
 
-
 <div id="calendarModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -98,10 +98,10 @@
                         <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
-                        <label for="phone_client">Numero De Client:</label>
+                        <label for="phone_client">Nom De Client:</label>
                         <input id="phone_client" class="form-control" type="text" name="phone_client">
-                        <label for="name_client">Titre:</label>
-                        <input id="title" class="form-control" type="text" name="name_client">
+                        <label for="name_client">Numero de Client:</label>
+                        <input id="title" class="form-control" type="number" name="name_client">
                         <label for="statut">Statut:</label>
                         <select id="statut" class="form-control" name="status" id="">
                             <option value="closed">Fermé</option>
@@ -114,7 +114,7 @@
                             <label class="form-check-label" for="flexCheckDefault">
                               Prioritaire
                             </label>
-                          </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -124,7 +124,6 @@
         </div>
     </div>
 </div>
-
 
 @endsection
 

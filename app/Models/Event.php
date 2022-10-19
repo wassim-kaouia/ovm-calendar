@@ -22,7 +22,7 @@ class Event extends Model
         'priority',
         'color',
         'textColor',
-        'note'
+        'note',
     ];
 
     public function user(){

@@ -14,13 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('calendar.index');
+// });
+
 Route::get('/', function () {
-    return view('calendar.index');
+    return view('calendar.showPublicCalendar');
 });
 
 Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar');
 Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post');
+Route::PUT('/event/update',[EventController::class,'eventUpdate'])->name('event-update');
 Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event');
+
 
 Auth::routes();
 

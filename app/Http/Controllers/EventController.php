@@ -11,8 +11,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventController extends Controller
 {
     public function index(Request $request){
-        $data = Event::latest()->get();
-        return response()->json($data,200);
+        if(auth()->user()->role == 'vendor'){
+            $data = Event::latest()->get();
+            return response()->json($data,200);
+        }
+        
     }
 
     public function eventCreate(Request $request){
@@ -24,11 +27,14 @@ class EventController extends Controller
                 'end'  => $request->start,
                 'user_id' => auth()->user()->id,
                 'status' => $request->status,
+                'phone_client' => $request->phone_client,
+                'name_client' => $request->name_client,
                 'priority' => 'priority',
                 'color' => auth()->user()->color,
                 'textColor' => auth()->user()->textColor,
                 'note' => $request->note,
             ]);
+
             if($event){
                 Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
             }else{
