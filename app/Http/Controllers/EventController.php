@@ -15,7 +15,6 @@ class EventController extends Controller
             $data = Event::latest()->get();
             return response()->json($data,200);
         }
-        
     }
 
     public function eventCreate(Request $request){
@@ -34,7 +33,6 @@ class EventController extends Controller
                 'textColor' => auth()->user()->textColor,
                 'note' => $request->note,
             ]);
-
             if($event){
                 Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
             }else{
@@ -43,7 +41,7 @@ class EventController extends Controller
             return redirect()->back();
         }
     }
-
+    
     public function getEventById(Request $request,$id){
         $data = Event::where('id','=',$id)->with('user')->first();
         return response()->json($data,200);

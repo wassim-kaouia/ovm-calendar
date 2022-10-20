@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('calendar.showPublicCalendar');
-});
+})->middleware('auth');
 
-Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar');
-Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post');
-Route::PUT('/event/update',[EventController::class,'eventUpdate'])->name('event-update');
-Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event');
-
+Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar')->middleware('auth');
+Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post')->middleware('auth');
+Route::PUT('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
+Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event')->middleware('auth');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
