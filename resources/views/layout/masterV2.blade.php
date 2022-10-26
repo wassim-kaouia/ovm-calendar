@@ -17,6 +17,7 @@
         @yield('mycss')
     </head>
     <body data-sidebar="dark" data-layout-mode="light">
+        @include('sweetalert::alert')
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
         <!-- Begin page -->
         <div id="layout-wrapper">

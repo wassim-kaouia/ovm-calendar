@@ -34,7 +34,67 @@
 </div>
 
 <div class="row">
- {{$user}}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mb-4">Modifier un utilisateur</h4>
+
+            <form method="POST" action="{{ route('users-update') }}">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label for="formrow-firstname-input" class="form-label">Nom Complet</label>
+                    <input type="text" class="form-control" id="formrow-firstname-input" name="name" placeholder="Entrer Le Nom Complet" value="{{ $user->name }}">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="formrow-email-input" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="formrow-email-input" name="email" placeholder="Enter Your Email ID" value="{{ $user->email }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="formrow-password-input" name="password">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-6">
+                            <label for="color" class="form-label">Couleur de RDV</label>
+                            <input type="color" name="color" id="color" value="{{ $user->color }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-6">
+                            <label for="textColor" class="form-label">Couleur de Texte sur RDV</label>
+                            <input type="color" name="textColor" id="textColor" value="{{ $user->textColor }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-6">
+                            <label for="role" class="form-label">Role</label>
+                            <select name="role" id="role" class="form-control">
+                                <option {{$user->role == 'admin' ? 'selected' : ''}} value="admin">Administrateur</option>
+                                <option {{$user->role == 'vendor' ? 'selected' : ''}} value="vendor">Vendeur</option>
+                                <option {{$user->role == 'assistant' ? 'selected' : ''}} value="assistant">Assistance</option>
+                                <option {{$user->role == 'superviseur' ? 'selected' : ''}} value="supervisor">Superviseur</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary w-md">Modifier</button>
+                </div>
+            </form>
+        </div>
+        <!-- end card body -->
+    </div>
+    <!-- end card -->
 </div>
 <!-- end row -->
 @endsection

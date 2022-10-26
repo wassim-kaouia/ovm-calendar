@@ -9,8 +9,7 @@
 <script src="https://npmcdn.com/flatpickr@4.6.13/dist/l10n/fr.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-{{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+
 @endsection
 
 @section('mytitle')

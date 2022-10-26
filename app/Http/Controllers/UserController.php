@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -67,24 +69,38 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $data = $request->validate([
+            'name' => 'required|min:4|String',
+            'email' => 'required|email',
+            'color' => 'required|String',
+            'textColor' => 'required|String',
+            'role' => 'required|String',
+        ]);
+
+        if($data){
+            $user = User::find($request->user_id);
+
+            $user->name  = $user->name != $request->name ? $request->name : $user->name;
+            $user->email = $user->email != $request->email ? $request->email : $user->email;
+            $user->color = $user->color != $request->color ? $request->color : $user->color;
+            $user->textColor = $user->textColor != $request->textColor ? $request->textColor : $user->textColor;
+            $user->role = $user->role != $request->role ? $request->role : $user->role;
+            if($request->password != null){
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+            Alert::success('Modification', 'Les données sont mises à jour avec succès !');
+            return redirect()->back();
+
+         }else{
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(User $user)
     {
         //

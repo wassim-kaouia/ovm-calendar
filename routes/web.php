@@ -32,6 +32,7 @@ Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('
 
 Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware('auth');
 Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
+Route::put('/userUpdate',[UserController::class,'update'])->name('users-update')->middleware('auth');
 
 Auth::routes();
 
