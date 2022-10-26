@@ -12,7 +12,8 @@ class EventController extends Controller
 {
     public function index(Request $request){
         if(auth()->user()->role == 'vendor'){
-            $data = Event::latest()->get();
+            // $data = Event::latest()->get();
+            $data = Event::where('user_id','=',auth()->user()->id)->get();
             return response()->json($data,200);
         }
     }
@@ -41,9 +42,27 @@ class EventController extends Controller
             return redirect()->back();
         }
     }
-    
+
     public function getEventById(Request $request,$id){
         $data = Event::where('id','=',$id)->with('user')->first();
         return response()->json($data,200);
+    }
+
+    public function eventUpdate(Request $request){
+        
+        if($request->event_id == null){
+            return redirect('/');
+        }
+        $event = Event::find($request->event_id);
+
+        $event->title = $request->title;
+        $event->description = $request->description;
+        $event->start = $request->start;
+        $event->end = $request->start;
+        $event->status = $request->status;
+
+        $event->save();
+
+        return redirect()->back();
     }
 }

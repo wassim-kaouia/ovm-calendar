@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +21,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('calendar.showPublicCalendar');
-})->middleware('auth');
+})->name('calendrier-index')->middleware('auth');
 
 Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar')->middleware('auth');
 Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post')->middleware('auth');
-Route::PUT('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
+Route::put('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
+Route::delete('event/delete',[EventController::class,'eventDelete'])->name('event-delete')->middleware('auth');
 Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event')->middleware('auth');
+
+
+Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware('auth');
+Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
 
 Auth::routes();
 

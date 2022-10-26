@@ -9,11 +9,11 @@
         <!-- App favicon -->
         {{-- <link rel="shortcut icon" href="assets/images/favicon.ico"> --}}
         <!-- Bootstrap Css -->
-        <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
         @yield('mycss')
     </head>
     <body data-sidebar="dark" data-layout-mode="light">
@@ -94,7 +94,7 @@
                                     </a>
                                     <a href="javascript: void(0);" class="text-reset notification-item">
                                         <div class="d-flex">
-                                            <img src="assets/images/users/avatar-3.jpg"
+                                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <h6 class="mb-1">James Lemire</h6>
@@ -117,7 +117,7 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
+                                <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
                                     alt="Header Avatar">
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ Auth::user()->name }}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
@@ -153,7 +153,14 @@
                             <li class="menu-title" key="t-menu">Menu</li>
 
                             <li class="mm-active">
-                                <a href="pages-starter.html" class="waves-effect active">
+                                <a href="{{ route('users-list') }}" class="waves-effect active">
+                                    <i class="bx bx-user-circle"></i>
+                                    <span key="t-starter-page">Gestion des Utilisateurs</span>
+                                </a>
+                            </li>
+
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-index') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
                                     <span key="t-starter-page">Calendrier</span>
                                 </a>
@@ -222,7 +229,7 @@
 
                 <div class="p-4">
                     <div class="mb-2">
-                        <img src="assets/images/layouts/layout-1.jpg" class="img-thumbnail" alt="layout images">
+                        <img src="{{ asset('assets/images/layouts/layout-1.jpg') }}" class="img-thumbnail" alt="layout images">
                     </div>
 
                     <div class="form-check form-switch mb-3">
@@ -231,7 +238,7 @@
                     </div>
     
                     <div class="mb-2">
-                        <img src="assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="layout images">
+                        <img src="{{ asset('assets/images/layouts/layout-2.jpg') }}" class="img-thumbnail" alt="layout images">
                     </div>
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch">
@@ -239,7 +246,7 @@
                     </div>
     
                     <div class="mb-2">
-                        <img src="assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="layout images">
+                        <img src="{{ asset('assets/images/layouts/layout-3.jpg') }}" class="img-thumbnail" alt="layout images">
                     </div>
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch">
@@ -247,7 +254,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <img src="assets/images/layouts/layout-4.jpg" class="img-thumbnail" alt="layout images">
+                        <img src="{{ asset('assets/images/layouts/layout-4.jpg') }}" class="img-thumbnail" alt="layout images">
                     </div>
                     <div class="form-check form-switch mb-5">
                         <input class="form-check-input theme-choice" type="checkbox" id="dark-rtl-mode-switch">
@@ -266,15 +273,12 @@
 
        
          <!-- JAVASCRIPT -->
- <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
- <script src="assets/libs/simplebar/simplebar.min.js"></script>
- <script src="assets/libs/metismenu/metisMenu.min.js"></script>
- <script src="assets/libs/node-waves/waves.min.js"></script>
-
-
-        <script src="assets/js/app.js"></script>
-        
-    @yield('myjs')  
+ <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+ <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+ <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+ <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+ <script src="/assets/js/app.js"></script>    
+@yield('myjs')  
 <!-- plugin js -->
 {{-- <script src="assets/libs/moment/min/moment.min.js"></script>
 <script src="assets/libs/jquery-ui-dist/jquery-ui.min.js"></script>

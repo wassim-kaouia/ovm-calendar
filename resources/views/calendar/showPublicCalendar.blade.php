@@ -9,7 +9,8 @@
 <script src="https://npmcdn.com/flatpickr@4.6.13/dist/l10n/fr.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-
+{{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 @endsection
 
 @section('mytitle')
@@ -55,41 +56,46 @@
                             <label>Role d'employé : <b class="roleEmployee"></b> </label><br>
                             <label>Date de création : <b class="createdAt"></b></label><br><br>
                         </div>
-                        <div>
-                            <label for="title">Titre:</label>
-                            <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
-                            <label for="title">Assigné par:</label>
-                            <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
-                            <label for="title">Date de Rendez-vous:</label>
-                            <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
-                            <label for="title">Coleur de Rendez-vous:</label>
-                            <input class="form-control" type="color" name="color" id="color" disabled>
-                            <label for="title">Coleur de Texte de Rendez-vous:</label>
-                            <input class="form-control" type="color" name="textColor" id="textColor" disabled>
-                            <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
-                            <label for="statut">Statut:</label>
-                            <select id="statut" class="form-control" name="status" id="">
-                                <option value="closed">Fermé</option>
-                                <option value="pending">En cours</option>
-                                <option value="waiting">En attente</option>
-                                <option value="canceled">Annulé</option>
-                            </select>
-                            <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                Prioritaire 
-                                </label>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-6 col-sm-6">
-                                    <button type="submit" class="btn btn-success" data-dismiss="modal">Mettre a jour</button>
+                        <form action="{{ route('event-update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div>
+                                <label for="title">Titre:</label>
+                                <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
+                                <label for="title">Assigné par:</label>
+                                <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                                <label for="title">Date de Rendez-vous:</label>
+                                <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
+                                <label for="title">Coleur de Rendez-vous:</label>
+                                <input class="form-control" type="color" name="color" id="color" disabled>
+                                <label for="title">Coleur de Texte de Rendez-vous:</label>
+                                <input class="form-control" type="color" name="textColor" id="textColor" disabled>
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                                <label for="statut">Statut:</label>
+                                <select id="statut" class="form-control" name="status" id="">
+                                    <option value="closed">Fermé</option>
+                                    <option value="pending">En cours</option>
+                                    <option value="waiting">En attente</option>
+                                    <option value="canceled">Annulé</option>
+                                </select>
+                                <input type="hidden" name="event_id" id="event_id">
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                    Prioritaire 
+                                    </label>
                                 </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
+                                <div class="row mt-4">
+                                    <div class="col-md-6 col-sm-6">
+                                        <button type="submit" class="btn btn-success" data-dismiss="modal">Mettre a jour</button>
+                                    </div>
+                                    {{-- <div class="col-md-6 col-sm-6">
+                                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
+                                    </div> --}}
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                   </div>
             </div>
@@ -136,12 +142,11 @@
                 </form>
             </div>
         </div>
-
 @endsection
-
 @section('myjs')
+
+
 <script>
-        
     $(document).ready(function(){
         $.ajaxSetup(
             {
@@ -153,8 +158,7 @@
         //activate fullcalendar and edit its attributes
         var calendar = $('#calendar').fullCalendar({
             editable:true,
-            selectable: true,
-            
+            selectable: true,    
             header:{
                 left:'prev,next,today',
                 center:'title',
@@ -166,7 +170,6 @@
                 var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm');
                 document.getElementById('start').value = start;
                 $('#calendarModal').modal("show");
-                
                 console.log('prompted');
             },
             eventClick:function(event){
@@ -178,6 +181,7 @@
                     success: function(data){
                         console.log(data);
                         $('#title').val(data.title);
+                        $('#event_id').val(data.id);
                         $('#color').val(data.color);
                         $('#textColor').val(data.textColor);
                         $('#description').val(data.description);
@@ -198,7 +202,6 @@
                 );
             },
         });
-
         $(".datepicker").flatpickr({
             locale:{
                 firstDayOfWeek: 1,
@@ -216,6 +219,5 @@
         });
 
     });
-
 </script>
 @endsection
