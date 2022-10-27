@@ -19,7 +19,22 @@ class EventController extends Controller
     }
 
     public function eventCreate(Request $request){
-        if($request){
+        if($request->content == null){
+            Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
+            return redirect('/');
+        }
+        $data = $request->validate([
+            'title' => 'required',
+            'assignedBy' => 'required',
+            'start' => 'required',
+            'description' => 'required',
+            'phone_client' => 'required',
+            'name_client' => 'required',
+            'status' => 'required',
+        ]);
+
+        if($data){
+            
             $event = Event::create([
                 'title' => $request->title,
                 'description' => $request->description,
@@ -36,11 +51,19 @@ class EventController extends Controller
             ]);
             if($event){
                 Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
+                return redirect()->back();
             }else{
+                
                 Alert::error('Création de rendez-vous', 'un probleme est survenu !');
+                return redirect()->back();
             }
+            
+        }else{
+            Alert::error('Création de rendez-vous', 'un probleme est survenu !');
             return redirect()->back();
         }
+           
+        
     }
 
     public function getEventById(Request $request,$id){
@@ -51,6 +74,7 @@ class EventController extends Controller
     public function eventUpdate(Request $request){
         
         if($request->event_id == null){
+            Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
         }
         $event = Event::find($request->event_id);
@@ -63,6 +87,7 @@ class EventController extends Controller
 
         $event->save();
 
+        Alert::success('Modification de rendez-vous', ' RDV Modifié avec succes!');
         return redirect()->back();
     }
 }

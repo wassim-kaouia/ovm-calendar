@@ -96,6 +96,7 @@ class UserController extends Controller
             return redirect()->back();
 
          }else{
+            Alert::error('Error', 'Erreur de Validation !');
             return redirect()->back();
         }
     }
