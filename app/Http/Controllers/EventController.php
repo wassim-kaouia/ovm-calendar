@@ -19,28 +19,34 @@ class EventController extends Controller
     }
 
     public function eventCreate(Request $request){
-        if($request->content == null){
+        // check wether the request has title
+        // dd($request->has('title'));
+        if(!$request->has('title')){
+            // dd('no');
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
         }
+    
         $data = $request->validate([
             'title' => 'required',
             'assignedBy' => 'required',
+            'assignedTo' => 'required',
             'start' => 'required',
             'description' => 'required',
             'phone_client' => 'required',
             'name_client' => 'required',
             'status' => 'required',
+            'siteweb' => 'String'
         ]);
-
+        // dd('ok');
         if($data){
-            
             $event = Event::create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'start' => $request->start,
                 'end'  => $request->start,
                 'user_id' => auth()->user()->id,
+                'siteweb' => $request->siteweb,
                 'status' => $request->status,
                 'phone_client' => $request->phone_client,
                 'name_client' => $request->name_client,
@@ -59,7 +65,7 @@ class EventController extends Controller
             }
             
         }else{
-            Alert::error('Création de rendez-vous', 'un probleme est survenu !');
+            Alert::error('Création de rendez-vous', 'un probleme est survenu !!!!');
             return redirect()->back();
         }
            

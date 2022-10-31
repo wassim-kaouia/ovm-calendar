@@ -16,6 +16,7 @@ class Event extends Model
         'phone_client',
         'name_client',
         'user_id',
+        'siteweb',
         'description',
         'status',
         'access',

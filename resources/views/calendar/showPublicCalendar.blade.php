@@ -61,8 +61,13 @@
                             <div>
                                 <label for="title">Titre:</label>
                                 <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
-                                <label for="title">Assigné par:</label>
+                                <label for="assignedBy">Assigné par:</label>
                                 <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                                <label for="assignedTo">Assigné à:</label>
+                                {{-- <input class="form-control" type="text" name="assignedTo" value="" placeholder=""> --}}
+                                <select class="form-control" name="assignedTo" id="assignedTo">
+                                    
+                                </select>
                                 <label for="title">Date de Rendez-vous:</label>
                                 <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
                                 <label for="title">Coleur de Rendez-vous:</label>
@@ -112,6 +117,10 @@
                             <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
                             <label for="assignedBy">Assigné par:</label>
                             <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                            <label for="assignedTo">Assigné à:</label>
+                            <input class="form-control" type="text" name="assignedTo" value="" placeholder="">
+                            <label for="siteweb">Site Web:</label>
+                            <input class="form-control" type="text" name="siteweb" value="" placeholder="">
                             <label for="start">Date de Rendez-vous:</label>
                             <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
                             <label for="description">Description:</label>
@@ -121,7 +130,7 @@
                             <label for="name_client">Numero de Client:</label>
                             <input id="title" class="form-control" type="number" name="name_client">
                             <label for="statut">Statut:</label>
-                            <select id="statut" class="form-control" name="status" id="">
+                            <select id="statut" class="form-control" name="status" id="status">
                                 <option value="closed">Fermé</option>
                                 <option value="pending">En cours</option>
                                 <option value="waiting">En attente</option>
@@ -143,7 +152,6 @@
         </div>
 @endsection
 @section('myjs')
-
 
 <script>
     $(document).ready(function(){
@@ -217,6 +225,23 @@
                 dateFormat: "Y-m-d H:i",
         });
 
+        $.get("{{ route('get-users')}}",function(data,status){
+                console.log(data);
+                data.forEach(element => {
+                    console.log(element.id);
+                    $('#assignedTo').append(new Option(element.name, element.id));
+                });
+            });
+        // $('#assignedTo').on('click',function(){
+        //     console.log('clicked sur assignedTo');
+        //     $.get("{{ route('get-users')}}",function(data,status){
+        //         console.log(data);
+        //         data.forEach(element => {
+        //             console.log(element.id);
+        //             $('#assignedTo').append(new Option(element.name, element.id));
+        //         });
+        //     });
+        // });
     });
 </script>
 @endsection

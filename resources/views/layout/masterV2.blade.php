@@ -34,7 +34,6 @@
                                     {{-- <img src="assets/images/logo-dark.png" alt="" height="17"> --}}
                                 </span>
                             </a>
-
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
                                     {{-- <img src="assets/images/logo-light.svg" alt="" height="22"> --}}
@@ -44,13 +43,10 @@
                                 </span>
                             </a>
                         </div>
-
                         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
                             <i class="fa fa-fw fa-bars"></i>
                         </button>
-
                     </div>
-
                     <div class="d-flex">
                         <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
@@ -278,7 +274,7 @@
  <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
  <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
  <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
- <script src="/assets/js/app.js"></script>    
+ <script src="./assets/js/app.js"></script>    
 @yield('myjs')  
 <!-- plugin js -->
 {{-- <script src="assets/libs/moment/min/moment.min.js"></script>

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateEventsTable extends Migration
 {
- 
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
@@ -15,7 +14,10 @@ class CreateEventsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->foreignId('user_id');
+            $table->string('assignedBy')->nullable();
+            $table->dateTime('assignementDate')->nullable();
             $table->text('description')->nullable();
+            $table->string('siteweb');
             $table->string('phone_client');
             $table->string('name_client');
             $table->string('status');

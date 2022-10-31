@@ -101,6 +101,11 @@ class UserController extends Controller
         }
     }
 
+    public function getUsersList(Request $request){
+        $user = User::all();
+        
+        return response()->json($user,200);
+    }
     
     public function destroy(User $user)
     {

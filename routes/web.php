@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
+    // return Activity::all();
     return view('calendar.showPublicCalendar');
 })->name('calendrier-index')->middleware('auth');
 
@@ -33,6 +36,10 @@ Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('
 Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware('auth');
 Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
 Route::put('/userUpdate',[UserController::class,'update'])->name('users-update')->middleware('auth');
+Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get-users')->middleware('auth');
+
+Route::get('/logs',[LogController::class,'index'])->name('logs.index')->middleware('auth');
+Route::get('/detailsLogs/{id}',[LogController::class,'show'])->name('logs.show')->middleware('auth');
 
 Auth::routes();
 
