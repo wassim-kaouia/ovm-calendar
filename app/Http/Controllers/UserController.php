@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -88,6 +89,14 @@ class UserController extends Controller
             $user->color = $user->color != $request->color ? $request->color : $user->color;
             $user->textColor = $user->textColor != $request->textColor ? $request->textColor : $user->textColor;
             $user->role = $user->role != $request->role ? $request->role : $user->role;
+
+            $events = Event::where('user_id',$request->user_id)->get();
+            
+            foreach($events as $event){
+                $event->color = $user->color;
+                $event->textColor = $user->textColor;
+                $event->save();
+            }
             if($request->password != null){
                 $user->password = Hash::make($request->password);
             }

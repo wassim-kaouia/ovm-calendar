@@ -16,11 +16,6 @@ class User extends Authenticatable
     
     protected static $logAttributes = ['*'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -35,8 +30,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    
-    
+   
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

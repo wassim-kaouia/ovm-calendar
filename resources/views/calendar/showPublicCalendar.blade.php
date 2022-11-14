@@ -52,6 +52,7 @@
                             <label>Numero Client : <b class="phoneClient"></b></label><br>
                             <label>Description : <p class="description"></p></label><br>
                             <label>Créé par : <b class="createdBy"></b> </label><br>
+                            <label>Assigné à : <b class="assignedTo"></b> </label><br>
                             <label>Role d'employé : <b class="roleEmployee"></b> </label><br>
                             <label>Date de création : <b class="createdAt"></b></label><br><br>
                         </div>
@@ -62,11 +63,10 @@
                                 <label for="title">Titre:</label>
                                 <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
                                 <label for="assignedBy">Assigné par:</label>
-                                <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                                <input class="form-control" type="text" name="assignedBy" value="" id="assignedByInput" disabled>
                                 <label for="assignedTo">Assigné à:</label>
-                                {{-- <input class="form-control" type="text" name="assignedTo" value="" placeholder=""> --}}
                                 <select class="form-control" name="assignedTo" id="assignedTo">
-                                    
+                                    <option value="0">Choisisez un utilisateur</option>
                                 </select>
                                 <label for="title">Date de Rendez-vous:</label>
                                 <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
@@ -116,9 +116,11 @@
                             <label for="title">Titre:</label>
                             <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
                             <label for="assignedBy">Assigné par:</label>
-                            <input class="form-control" type="text" name="assignedBy" value="" placeholder="">
+                            <input class="form-control" type="text" name="assignedBy" value="{{ Auth::user()->name }}" disabled>
                             <label for="assignedTo">Assigné à:</label>
-                            <input class="form-control" type="text" name="assignedTo" value="" placeholder="">
+                            <select class="form-control" name="assignedTo" id="assignedToCreate">
+                                <option value="0">Choisisez un utilisateur</option>
+                            </select>
                             <label for="siteweb">Site Web:</label>
                             <input class="form-control" type="text" name="siteweb" value="" placeholder="">
                             <label for="start">Date de Rendez-vous:</label>
@@ -137,7 +139,7 @@
                                 <option value="canceled">Annulé</option>
                             </select>
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" name="priority" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                   Prioritaire
                                 </label>
@@ -196,9 +198,11 @@
                         $('#status').val(data.status);
                         $('.nameOfEmployee').text(data.user.name);
                         $('.roleEmployee').text(data.user.role);
-                        $('.createdBy').text(data.user.name);
+                        $('.createdBy').text(data.assignedBy);
                         $('.nameClient').text(data.name_client);
                         $('.phoneClient').text(data.phone_client);
+                        $('#assignedByInput').val(data.assignedBy);
+                        $('.assignedTo').text(data.getAssignedTo);
                         $('.createdAt').text(moment(data.created_at).format('Y-MM-DD HH:mm'));
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                     },
@@ -230,8 +234,16 @@
                 data.forEach(element => {
                     console.log(element.id);
                     $('#assignedTo').append(new Option(element.name, element.id));
+                    $('#assignedToCreate').append(new Option(element.name, element.id));
                 });
-            });
+        });
+        //  $.get("{{ route('get-users')}}",function(data,status){
+        //         console.log(data);
+        //         data.forEach(element => {
+        //             console.log(element.id);
+        //             $('#assignedTo').append(new Option(element.name, element.id));
+        //         });
+        //     });    
         // $('#assignedTo').on('click',function(){
         //     console.log('clicked sur assignedTo');
         //     $.get("{{ route('get-users')}}",function(data,status){

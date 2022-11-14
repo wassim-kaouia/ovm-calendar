@@ -11,6 +11,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventController extends Controller
 {
     public function index(Request $request){
+
+        if(auth()->user()->role == 'admin'){
+            $data = Event::all();
+            return response()->json($data,200);
+        }
+
         if(auth()->user()->role == 'vendor'){
             // $data = Event::latest()->get();
             $data = Event::where('user_id','=',auth()->user()->id)->get();
@@ -21,40 +27,50 @@ class EventController extends Controller
     public function eventCreate(Request $request){
         // check wether the request has title
         // dd($request->has('title'));
-        if(!$request->has('title')){
+        // dd($request->filled('title'));
+        // dd($request->all());
+        if(!$request->filled('title') || !$request->filled('assignedTo') || !$request->filled('start') ||
+        !$request->filled('description') || !$request->filled('phone_client') || !$request->filled('name_client') || !$request->filled('status') 
+        || !$request->filled('siteweb')
+        ){
             // dd('no');
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
         }
-    
+        
         $data = $request->validate([
             'title' => 'required',
-            'assignedBy' => 'required',
-            'assignedTo' => 'required',
-            'start' => 'required',
+            'assignedTo' => 'required|numeric',
+            'start' => 'date',
             'description' => 'required',
             'phone_client' => 'required',
             'name_client' => 'required',
             'status' => 'required',
-            'siteweb' => 'String'
+            'siteweb' => 'string',
         ]);
-        // dd('ok');
+
+        // dd($request->all());
+
         if($data){
-            $event = Event::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'start' => $request->start,
-                'end'  => $request->start,
-                'user_id' => auth()->user()->id,
-                'siteweb' => $request->siteweb,
-                'status' => $request->status,
-                'phone_client' => $request->phone_client,
-                'name_client' => $request->name_client,
-                'priority' => 'priority',
-                'color' => auth()->user()->color,
-                'textColor' => auth()->user()->textColor,
-                'note' => $request->note,
-            ]);
+            $event = new Event();
+            $event->title = $request->title;
+            $event->description = $request->description;
+            $event->start = $request->start;
+            $event->end = $request->start;
+            $event->user_id = $request->assignedTo == '0' ? auth()->user()->id : $request->assignedTo;
+            $event->siteweb = $request->siteweb;
+            $event->status = $request->status;
+            $event->phone_client = $request->phone_client;
+            $event->name_client = $request->name_client;
+            $event->priority = $request->priority == 'on' ? true : false;
+            $event->color = auth()->user()->color;
+            $event->textColor = auth()->user()->textColor;
+            $event->note = $request->note;
+
+            $event->assignedBy = auth()->user()->name;
+            $event->assignementDate = now();
+
+            $event->save();
             if($event){
                 Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
                 return redirect()->back();
@@ -78,7 +94,7 @@ class EventController extends Controller
     }
 
     public function eventUpdate(Request $request){
-        
+        // dd($request->all());
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
@@ -89,6 +105,7 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->start = $request->start;
         $event->end = $request->start;
+        $event->user_id = $request->assignedTo;
         $event->status = $request->status;
 
         $event->save();

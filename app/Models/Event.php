@@ -17,6 +17,8 @@ class Event extends Model
         'name_client',
         'user_id',
         'siteweb',
+        'assignedBy',
+        'assignementDate',
         'description',
         'status',
         'access',
@@ -32,6 +34,12 @@ class Event extends Model
 
     public function task(){
         return $this->hasOne(Task::class);
+    }
+
+    public function getAssignedTo(){
+     $user = User::findOrFail($this->user_id);
+
+     return $user->name;
     }
 
 }
