@@ -35,11 +35,5 @@ class Event extends Model
     public function task(){
         return $this->hasOne(Task::class);
     }
-
-    public function getAssignedTo(){
-     $user = User::findOrFail($this->user_id);
-
-     return $user->name;
-    }
-
+    
 }

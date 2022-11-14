@@ -31,6 +31,7 @@ Route::post('/event/create',[EventController::class,'eventCreate'])->name('event
 Route::put('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
 Route::delete('event/delete',[EventController::class,'eventDelete'])->name('event-delete')->middleware('auth');
 Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event')->middleware('auth');
+Route::get('/getAssignedToName/{id}',[EventController::class,'getAssignedToName'])->name('get.assignedto')->middleware('auth');
 
 
 Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware('auth');

@@ -30,7 +30,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-   
+    public function getUserName(){
+        return 'wassim';
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

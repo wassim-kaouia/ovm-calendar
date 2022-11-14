@@ -184,10 +184,11 @@
             eventClick:function(event){
                 console.log('event opened!'+event.id);
                 var dataFromDB;
-                $.ajax({
+                $.ajax({       
                     url:'{{ url("/getEventById") }}'+"/"+event.id,
                     type:'GET',
                     success: function(data){
+                        var userid = data.user_id;
                         console.log(data);
                         $('#title').val(data.title);
                         $('#event_id').val(data.id);
@@ -201,8 +202,12 @@
                         $('.createdBy').text(data.assignedBy);
                         $('.nameClient').text(data.name_client);
                         $('.phoneClient').text(data.phone_client);
-                        $('#assignedByInput').val(data.assignedBy);
-                        $('.assignedTo').text(data.getAssignedTo);
+                        $('#assignedByInput').val();
+                        $.get('{{ url("/getAssignedToName") }}'+"/"+data.user_id,function(data,status){
+                            console.log(data);
+                            $('.assignedTo').text(data);
+                        });
+                        
                         $('.createdAt').text(moment(data.created_at).format('Y-MM-DD HH:mm'));
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                     },

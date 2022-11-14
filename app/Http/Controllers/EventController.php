@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -84,13 +85,17 @@ class EventController extends Controller
             Alert::error('Création de rendez-vous', 'un probleme est survenu !!!!');
             return redirect()->back();
         }
-           
-        
     }
 
     public function getEventById(Request $request,$id){
         $data = Event::where('id','=',$id)->with('user')->first();
         return response()->json($data,200);
+    }
+
+    public function getAssignedToName(Request $request,$id){
+        $assignedTo = User::findOrFail($id)->name;
+        
+        return response()->json($assignedTo,200);
     }
 
     public function eventUpdate(Request $request){
