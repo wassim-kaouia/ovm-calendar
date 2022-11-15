@@ -53,7 +53,6 @@
                                 <i class="bx bx-fullscreen"></i>
                             </button>
                         </div>
-
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -121,7 +120,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
+                                <a class="dropdown-item" href="{{ route('get-profile') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
                                 <a class="dropdown-item d-block" href="#"> <i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
@@ -140,9 +139,7 @@
 
             <!-- ========== Left Sidebar Start ========== -->
             <div class="vertical-menu">
-
                 <div data-simplebar class="h-100">
-
                     <!--- Sidemenu -->
                     <div id="sidebar-menu">
                         <!-- Left Menu Start -->
@@ -208,7 +205,7 @@
         </div>
         <!-- END layout-wrapper -->
 
-        <!-- Right Sidebar -->
+        {{-- <!-- Right Sidebar -->
         <div class="right-bar">
             <div data-simplebar class="h-100">
                 <div class="rightbar-title d-flex align-items-center px-3 py-4">
@@ -263,7 +260,7 @@
 
             </div> <!-- end slimscroll-menu-->
         </div>
-        <!-- /Right-bar -->
+        <!-- /Right-bar --> --}}
 
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>

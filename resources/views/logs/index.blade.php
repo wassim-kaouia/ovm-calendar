@@ -48,9 +48,9 @@
                             <tbody>
                                 @foreach ($logs as $log)
                                 <tr>
-                                    <?php $causerId = $log->id; ?>
+                                    <?php $causerId = intval($log->causer_id); ?>
                                     <th scope="row">{{ $log->id }}</th>
-                                    <td>{{ $log->getCauser($log->causer_id)->name }}</td>
+                                    <td>{{ $log->getCauser($causerId) }}</td>
                                     <td>
                                         @if ($log->subject_type == 'App\Models\User')
                                             Utilisateur

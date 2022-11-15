@@ -38,7 +38,6 @@ class EventController extends Controller
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
         }
-        
         $data = $request->validate([
             'title' => 'required',
             'assignedTo' => 'required|numeric',
@@ -49,9 +48,7 @@ class EventController extends Controller
             'status' => 'required',
             'siteweb' => 'string',
         ]);
-
         // dd($request->all());
-
         if($data){
             $event = new Event();
             $event->title = $request->title;
@@ -72,15 +69,14 @@ class EventController extends Controller
             $event->assignementDate = now();
 
             $event->save();
+
             if($event){
                 Alert::success('Création de rendez-vous', 'rendez vous créé avec succès');
                 return redirect()->back();
             }else{
-                
                 Alert::error('Création de rendez-vous', 'un probleme est survenu !');
                 return redirect()->back();
             }
-            
         }else{
             Alert::error('Création de rendez-vous', 'un probleme est survenu !!!!');
             return redirect()->back();
@@ -94,7 +90,6 @@ class EventController extends Controller
 
     public function getAssignedToName(Request $request,$id){
         $assignedTo = User::findOrFail($id)->name;
-        
         return response()->json($assignedTo,200);
     }
 
@@ -110,7 +105,8 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->start = $request->start;
         $event->end = $request->start;
-        $event->user_id = $request->assignedTo;
+        $event->user_id = $request->assignedTo == '0' ? $event->user_id : $request->assignedTo;
+        // $event->assignedBy
         $event->status = $request->status;
 
         $event->save();

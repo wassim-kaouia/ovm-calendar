@@ -197,7 +197,6 @@
                                 </td>
                             </tr>
                             @endif
-                        
                         @if ($log->subject_type == 'App\Models\Event')
                            <tr>
                             <?php $myarray = json_decode($log->properties,true); 

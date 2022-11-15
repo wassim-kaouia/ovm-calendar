@@ -38,6 +38,7 @@ Route::get('/users',[UserController::class,'index'])->name('users-list')->middle
 Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
 Route::put('/userUpdate',[UserController::class,'update'])->name('users-update')->middleware('auth');
 Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get-users')->middleware('auth');
+Route::get('/user/profile',[UserController::class,'getProfile'])->name('get-profile')->middleware('auth');
 
 Route::get('/logs',[LogController::class,'index'])->name('logs.index')->middleware('auth');
 Route::get('/detailsLogs/{id}',[LogController::class,'show'])->name('logs.show')->middleware('auth');

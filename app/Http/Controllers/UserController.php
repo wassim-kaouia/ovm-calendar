@@ -86,15 +86,23 @@ class UserController extends Controller
 
             $user->name  = $user->name != $request->name ? $request->name : $user->name;
             $user->email = $user->email != $request->email ? $request->email : $user->email;
-            $user->color = $user->color != $request->color ? $request->color : $user->color;
-            $user->textColor = $user->textColor != $request->textColor ? $request->textColor : $user->textColor;
+            $user->color = $user->color == $request->color ? $user->color : $request->color;
+            $user->textColor = $user->textColor == $request->textColor ? $user->textColor : $request->textColor;
             $user->role = $user->role != $request->role ? $request->role : $user->role;
 
             $events = Event::where('user_id',$request->user_id)->get();
             
             foreach($events as $event){
-                $event->color = $user->color;
-                $event->textColor = $user->textColor;
+                //reponsible of changing the color of assignedTo colors - pay attention!
+                //i can fixe it in next feature by adding a boolean field to check wether the event is being created for the user or affected to him by another one
+                // if so i have to keep the same color of the old one so i can make difference 
+            
+                    $event->color = $request->color;
+                    $event->textColor = $request->textColor;
+                
+                // if($event->assingnedBy != $user->name){
+                //     $event->assignedBy = $user->name;
+                // }
                 $event->save();
             }
             if($request->password != null){
@@ -103,7 +111,6 @@ class UserController extends Controller
             $user->save();
             Alert::success('Modification', 'Les données sont mises à jour avec succès !');
             return redirect()->back();
-
          }else{
             Alert::error('Error', 'Erreur de Validation !');
             return redirect()->back();
@@ -119,5 +126,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getProfile(Request $request){
+        return view('users.profile');
     }
 }

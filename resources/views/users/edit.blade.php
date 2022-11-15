@@ -99,7 +99,6 @@
 <!-- end row -->
 @endsection
 @section('myjs')
-
 <script>
     $(document).ready(function(){
         $.ajaxSetup(
