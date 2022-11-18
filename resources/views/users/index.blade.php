@@ -30,17 +30,15 @@
         </div>
     </div>
     <div>
-        
     </div>
 </div>
-
 <div class="row">
   @foreach ($users as $user)
   <div class="col-xl-3 col-sm-6">
     <div class="card text-center">
         <div class="card-body">
             <div class="mb-4">
-                <img class="rounded-circle avatar-sm" src="assets/images/users/avatar-2.jpg" alt="">
+                <img class="rounded-circle avatar-sm" src="{{ URL('storage/'.$user->avatar) }}" alt="">
             </div>
             <h5 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-dark">{{ $user->name }}</a></h5>
             <p class="text-muted">{{ $user->role }}</p>

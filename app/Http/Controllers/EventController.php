@@ -14,12 +14,12 @@ class EventController extends Controller
     public function index(Request $request){
 
         if(auth()->user()->role == 'admin'){
+            // $data = Event::latest()->get();
             $data = Event::all();
             return response()->json($data,200);
         }
 
-        if(auth()->user()->role == 'vendor'){
-            // $data = Event::latest()->get();
+        if(auth()->user()->role == 'vendor' || auth()->user()->role == 'assistant'){
             $data = Event::where('user_id','=',auth()->user()->id)->get();
             return response()->json($data,200);
         }
@@ -48,8 +48,9 @@ class EventController extends Controller
             'status' => 'required',
             'siteweb' => 'string',
         ]);
-        // dd($request->all());
+        
         if($data){
+            
             $event = new Event();
             $event->title = $request->title;
             $event->description = $request->description;
@@ -87,14 +88,14 @@ class EventController extends Controller
         $data = Event::where('id','=',$id)->with('user')->first();
         return response()->json($data,200);
     }
-
+    
     public function getAssignedToName(Request $request,$id){
         $assignedTo = User::findOrFail($id)->name;
         return response()->json($assignedTo,200);
     }
-
+    
     public function eventUpdate(Request $request){
-        // dd($request->all());
+        dd($request->all());
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
@@ -106,9 +107,9 @@ class EventController extends Controller
         $event->start = $request->start;
         $event->end = $request->start;
         $event->user_id = $request->assignedTo == '0' ? $event->user_id : $request->assignedTo;
+        $event->priority = $request->priority == 'on' ? true : false;
         // $event->assignedBy
         $event->status = $request->status;
-
         $event->save();
 
         Alert::success('Modification de rendez-vous', ' RDV Modifié avec succes!');

@@ -13,17 +13,17 @@
 @endsection
 
 @section('mytitle')
-    
+
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Modification de profile</h4>
+            <h4 class="mb-sm-0 font-size-18">Ajouter un utilisateur</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Modification de profile</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Ajouter un utilisateur</a></li>
                     <li class="breadcrumb-item active">Acceuil</li>
                 </ol>
             </div>
@@ -38,21 +38,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Profile</h4>
+                <h4 class="card-title">Ajouter</h4>
                 <br>
-                <form action="{{ route('update-profile') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('post-new-user') }}" method="POST">
                     @csrf
                     <div class="mb-3 row">
                         <label for="example-text-input" class="col-md-2 col-form-label">Nom Complet</label>
                         <div class="col-md-10">
-                            <input class="form-control" name="name" type="text" value="{{ $profile->name }}"
+                            <input class="form-control" name="name" type="text" value=""
                                 id="example-text-input">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="example-search-input" class="col-md-2 col-form-label">Email</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="search" name="email" value="{{ $profile->email }}"
+                            <input class="form-control" type="search" name="email" value=""
                                 id="example-search-input">
                         </div>
                     </div>
@@ -73,31 +73,34 @@
                     <div class="mb-3 row">
                         <label for="example-color-input" class="col-md-2 col-form-label">Couleur</label>
                         <div class="col-md-10">
-                            <input class="form-control form-control-color mw-100" disabled value="{{ $profile->color }}" name="color" type="color"
+                            <input class="form-control form-control-color mw-100"  value="" name="color" type="color"
                                 id="example-color-input">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="example-color-input" class="col-md-2 col-form-label" >Texte Couleur</label>
                         <div class="col-md-10">
-                            <input class="form-control form-control-color mw-100" disabled name="textColor" type="color" value="{{ $profile->textColor }}"
+                            <input class="form-control form-control-color mw-100"  name="textColor" type="color" value=""
                                 id="example-color-input">
                         </div>
                     </div>
+
                     <div class="mb-3 row">
-                        <label for="example-color-input" class="col-md-2 col-form-label">Avatar</label>
+                        <label for="example-color-input" class="col-md-2 col-form-label" >Role</label>
                         <div class="col-md-10">
-                          <input class="form-control" id="formFileSm" type="file" name="avatar">     
-                          <div class="mt-4">
-                            <img width="100" src="{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}" alt="Avatar de profile">
-                          </div>             
+                            <select name="role" id="role" class="form-control">
+                                <option  value="admin">Administrateur</option>
+                                <option  value="vendor">Vendeur</option>
+                                <option  value="assistant">Assistance</option>
+                                <option  value="supervisor">Superviseur</option>
+                            </select>
                         </div>
                     </div>
+                    
                     <div class="mb-3 row">
                         <label for="example-color-input" class="col-md-2 col-form-label"></label>
                         <div class="col-md-10">
-                            <input type="hidden" value="{{ $profile->id }}" name="user_id">
-                            <button type="submit" class="btn btn-primary w-md">Modifier</button>
+                            <button type="submit" class="btn btn-primary w-md">Ajouter</button>
                         </div>
                     </div>
                 </form>

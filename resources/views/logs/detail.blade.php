@@ -43,8 +43,8 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <th scope="col">Nom Complet</th>
-                                <td scope="col">{{ $log->getCauser($log->causer_id)->name }}</td>
+                                <th scope="col">ID Complet</th>
+                                <td scope="col">{{ $log->causer_id }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">ID Utilisateur</th>

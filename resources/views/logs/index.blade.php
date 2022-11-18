@@ -39,7 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nom du modificateur</th>
+                                    <th>ID du modificateur</th>
                                     <th>Module Modifier</th>
                                     <th>Type</th>
                                     <th>Action</th>
@@ -50,7 +50,7 @@
                                 <tr>
                                     <?php $causerId = intval($log->causer_id); ?>
                                     <th scope="row">{{ $log->id }}</th>
-                                    <td>{{ $log->getCauser($causerId) }}</td>
+                                    <td>{{ $log->causer() }}</td>
                                     <td>
                                         @if ($log->subject_type == 'App\Models\User')
                                             Utilisateur

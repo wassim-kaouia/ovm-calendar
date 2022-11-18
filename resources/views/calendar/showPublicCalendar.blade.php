@@ -43,6 +43,7 @@
                     </div>
                     <div class="card-body">
                         <div>
+                            <label>RDV Prioritaire : <b class="priorityRDV"></b> </label><br>
                             <label>Date de RDV : <b class="dateRDV"></b> </label><br>
                             <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
                             <label>Nom Client : <b class="nameClient"></b></label><br>
@@ -84,7 +85,7 @@
                                 </select>
                                 <input type="hidden" name="event_id" id="event_id">
                                 <div class="form-check mt-4">
-                                    <input class="form-check-input" type="checkbox" value="" name="priority" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" name="priority" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Prioritaire 
                                     </label>
@@ -198,8 +199,13 @@
                         $('.roleEmployee').text(data.user.role);
                         $('.createdBy').text(data.assignedBy);
                         $('.nameClient').text(data.name_client);
+                        if(data.priority == '1'){
+                            $('.priorityRDV').text('Priotitaire !! 🚨');
+                        }else{
+                            $('.priorityRDV').text('Non Priotitaire ⏰');
+                        }
                         $('.phoneClient').text(data.phone_client);
-                        $('#assignedByInput').val();
+                        $('#assignedByInput').val(data.assignedBy);
                         $.get('{{ url("/getAssignedToName") }}'+"/"+data.user_id,function(data,status){
                             console.log(data);
                             $('.assignedTo').text(data);

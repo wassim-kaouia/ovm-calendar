@@ -26,7 +26,7 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="" class="logo logo-dark">
                                 <span class="logo-sm">
                                     {{-- <img src="assets/images/logo.svg" alt="" height="22"> --}}
                                 </span>
@@ -34,12 +34,12 @@
                                     {{-- <img src="assets/images/logo-dark.png" alt="" height="17"> --}}
                                 </span>
                             </a>
-                            <a href="index.html" class="logo logo-light">
+                            <a href="" class="logo logo-light">
                                 <span class="logo-sm">
                                     {{-- <img src="assets/images/logo-light.svg" alt="" height="22"> --}}
                                 </span>
                                 <span class="logo-lg">
-                                    {{-- <img src="assets/images/logo-light.png" alt="" height="19"> --}}
+                                    <img src="{{ asset('/assets/images/logo-ovm.png') }}" alt="" height="26">
                                 </span>
                             </a>
                         </div>
@@ -54,7 +54,7 @@
                             </button>
                         </div>
                         <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                            {{-- <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bx bx-bell bx-tada"></i>
                                 <span class="badge bg-danger rounded-pill">3</span>
@@ -108,19 +108,18 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
-
+                        </div> --}}
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
+                                <img class="rounded-circle header-profile-user" src="{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}"
                                     alt="Header Avatar">
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ Auth::user()->name }}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="{{ route('get-profile') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
+                                <a class="dropdown-item" href="{{ route('get-profile',['id' => Auth::user()->id]) }}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
                                 <a class="dropdown-item d-block" href="#"> <i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
@@ -132,11 +131,9 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </header>
-
             <!-- ========== Left Sidebar Start ========== -->
             <div class="vertical-menu">
                 <div data-simplebar class="h-100">
@@ -145,14 +142,19 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title" key="t-menu">Menu</li>
-
+                            
                             <li class="mm-active">
                                 <a href="{{ route('users-list') }}" class="waves-effect active">
                                     <i class="bx bx-user-circle"></i>
                                     <span key="t-starter-page">Gestion des Utilisateurs</span>
                                 </a>
                             </li>
-
+                            <li class="mm-active">
+                                <a href="{{ route('get-add-page') }}" class="waves-effect active">
+                                    <i class="bx bx-user-circle"></i>
+                                    <span key="t-starter-page">Ajouter un Utilisateur</span>
+                                </a>
+                            </li>
                             <li class="mm-active">
                                 <a href="{{ route('calendrier-index') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
@@ -165,27 +167,18 @@
                 </div>
             </div>
             <!-- Left Sidebar End -->
-
-            
-
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
-
             <div class="main-content">
-
                 <div class="page-content">
                     <div class="container-fluid">
-
                         <!-- start page title -->
                         @yield('content')
                         <!-- end page title -->
-                        
                     </div> <!-- container-fluid -->
                 </div>
             <!-- End Page-content -->
-
-                
                 <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
@@ -204,7 +197,6 @@
             <!-- end main content-->
         </div>
         <!-- END layout-wrapper -->
-
         {{-- <!-- Right Sidebar -->
         <div class="right-bar">
             <div data-simplebar class="h-100">
