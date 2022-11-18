@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $users = User::all();
@@ -24,44 +23,23 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Request $request,$id)
     {
         $user = User::find($id);
@@ -96,10 +74,8 @@ class UserController extends Controller
                 //reponsible of changing the color of assignedTo colors - pay attention!
                 //i can fixe it in next feature by adding a boolean field to check wether the event is being created for the user or affected to him by another one
                 // if so i have to keep the same color of the old one so i can make difference 
-            
                     $event->color = $request->color;
                     $event->textColor = $request->textColor;
-                
                 // if($event->assingnedBy != $user->name){
                 //     $event->assignedBy = $user->name;
                 // }
@@ -125,10 +101,79 @@ class UserController extends Controller
     
     public function destroy(User $user)
     {
-        //
+        
     }
 
-    public function getProfile(Request $request){
-        return view('users.profile');
+    public function getProfile(Request $request,$id){
+
+
+
+        $profile = User::findOrFail($id);
+        return view('users.profile',[
+            'profile' => $profile
+        ]);
+    }
+
+    public function updateProfile(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name'     => 'required',
+            'email'    => 'email',
+            'avatar'   => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+        
+        if($validator->fails()){
+           Alert::error('Error', 'Erreur de Validation !');
+           return redirect()->back();
+        }
+        
+        $user = User::findOrFail($request->user_id);
+        $user->name  = $request->name  == null ? $user->name : $request->name;
+        $user->email = $request->email == null ? $user->email: $request->email;
+        $user->password = $request->password == null ? $user->password : bcrypt($request->password);
+        
+        //upload photo avatar
+        if($request->hasFile('avatar')){
+            if(File::exists('storage/'.$user->avatar)){
+                unlink('storage/'.$user->avatar);
+            }
+            $image_path = $request->file('avatar')->store('avatar', 'public');
+            $user->avatar = $image_path;
+        }
+        $user->save();
+        Alert::success('Modification', 'Les données sont mises à jour avec succès !');  
+        return redirect()->back();
+    }
+    
+    public function getAddPage(Request $request){
+        return view('users.addUser');
+    }
+
+    public function addNewUser(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'color' => ['required'],
+            'textColor' => ['required'],
+        ]);
+
+        if($validator->fails()){
+            Alert::error('Error', 'Erreur de Validation !');
+            return redirect()->back();
+        }
+        
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->color = $request->color;
+        $user->textColor = $request->textColor;
+        $user->role = $request->role;
+        $user->save();
+        
+        Alert::success('Success', "L'utilisateur est créé avec succès !");
+        return redirect()->back();
     }
 }
