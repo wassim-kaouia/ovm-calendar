@@ -163,7 +163,6 @@ class UserController extends Controller
             return redirect()->back();
         }
         
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;

@@ -47,8 +47,8 @@
                             <label>Date de RDV : <b class="dateRDV"></b> </label><br>
                             <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
                             <label>Nom Client : <b class="nameClient"></b></label><br>
-                            <label>Numero Client : <b class="phoneClient"></b></label><br>
-                            <label>Site de Client : <b class="siteClient"></b></label><br>
+                            <label>Numero Client  : <b class="phoneClient"></b></label><br>
+                            <label>Site de Client : <a class="siteClient"></a></label><br>
                             <label>Description : <p class="description"></p></label><br>
                             <label>Assigné par : <b class="createdBy"></b> </label><br>
                             <label>Assigné à : <b class="assignedTo"></b> </label><br>
@@ -201,6 +201,7 @@
                         $('.nameClient').text(data.name_client);
                         if(data.priority == '1'){
                             $('.priorityRDV').text('Priotitaire !! 🚨');
+                            $('#flexCheckDefault').prop( "checked", true );
                         }else{
                             $('.priorityRDV').text('Non Priotitaire ⏰');
                         }
@@ -214,7 +215,7 @@
                         $('.updatedAt').text(moment(data.updated_at).format('Y-MM-DD HH:mm'));
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         $('.dateRDV').text( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
-                        $('.siteClient').text(data.siteweb);
+                        $('.siteClient').attr("href","http://www.test.com/");
                     },
                     error:function(error){
                         console.log(error);

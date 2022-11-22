@@ -93,9 +93,9 @@ class EventController extends Controller
         $assignedTo = User::findOrFail($id)->name;
         return response()->json($assignedTo,200);
     }
-    
+
     public function eventUpdate(Request $request){
-        dd($request->all());
+        // dd($request->all());
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
@@ -107,11 +107,11 @@ class EventController extends Controller
         $event->start = $request->start;
         $event->end = $request->start;
         $event->user_id = $request->assignedTo == '0' ? $event->user_id : $request->assignedTo;
-        $event->priority = $request->priority == 'on' ? true : false;
+        $event->priority = $request->priority == 'on' ? '1' : '0';
         // $event->assignedBy
         $event->status = $request->status;
         $event->save();
-
+        
         Alert::success('Modification de rendez-vous', ' RDV Modifié avec succes!');
         return redirect()->back();
     }
