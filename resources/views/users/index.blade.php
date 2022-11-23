@@ -35,8 +35,11 @@
 <div class="row">
   @foreach ($users as $user)
   <div class="col-xl-3 col-sm-6">
-    <div class="card text-center">
-        <div class="card-body">
+    <div class="card text-center" >
+        <div class="card-body" style="position: relative">
+            <div style="position: absolute; right: 20px; top:20px">
+                <a href="" style="font-size: 30px;"><i class="bx bxs-trash" style="color:rgb(247, 81, 81)"></i></a>
+            </div>
             <div class="mb-4">
                 <img class="rounded-circle avatar-sm" src="{{ URL('storage/'.$user->avatar) }}" alt="">
             </div>

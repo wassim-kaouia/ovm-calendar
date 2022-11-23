@@ -27,14 +27,10 @@ class EventController extends Controller
 
     public function eventCreate(Request $request){
         // check wether the request has title
-        // dd($request->has('title'));
-        // dd($request->filled('title'));
-        // dd($request->all());
         if(!$request->filled('title') || !$request->filled('assignedTo') || !$request->filled('start') ||
         !$request->filled('description') || !$request->filled('phone_client') || !$request->filled('name_client') || !$request->filled('status') 
         || !$request->filled('siteweb')
         ){
-            // dd('no');
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
         }
@@ -48,9 +44,7 @@ class EventController extends Controller
             'status' => 'required',
             'siteweb' => 'string',
         ]);
-        
-        if($data){
-            
+        if($data){ 
             $event = new Event();
             $event->title = $request->title;
             $event->description = $request->description;
@@ -95,7 +89,6 @@ class EventController extends Controller
     }
 
     public function eventUpdate(Request $request){
-        // dd($request->all());
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');

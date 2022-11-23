@@ -157,7 +157,7 @@ class UserController extends Controller
             'color' => ['required'],
             'textColor' => ['required'],
         ]);
-
+        
         if($validator->fails()){
             Alert::error('Error', 'Erreur de Validation !');
             return redirect()->back();

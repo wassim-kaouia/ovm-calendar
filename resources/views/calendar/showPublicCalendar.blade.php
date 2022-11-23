@@ -48,13 +48,14 @@
                             <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
                             <label>Nom Client : <b class="nameClient"></b></label><br>
                             <label>Numero Client  : <b class="phoneClient"></b></label><br>
-                            <label>Site de Client : <a class="siteClient"></a></label><br>
+                            <label>Site de Client : <a href='http://google.com' class="siteClient" id="siteClient"></a></label><br>
                             <label>Description : <p class="description"></p></label><br>
                             <label>Assigné par : <b class="createdBy"></b> </label><br>
                             <label>Assigné à : <b class="assignedTo"></b> </label><br>
                             <label>Role d'employé : <b class="roleEmployee"></b> </label><br>
                             <label>Date de création : <b class="createdAt"></b></label><br><br>
                             <label>Date de Mise à jour : <b class="updatedAt"></b></label><br><br>
+                            <a href="" class="siteClient">ok</a>
                         </div>
                         <form action="{{ route('event-update') }}" method="POST">
                             @csrf
@@ -87,7 +88,7 @@
                                 <div class="form-check mt-4">
                                     <input class="form-check-input" type="checkbox" name="priority" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                    Prioritaire 
+                                        Prioritaire 
                                     </label>
                                 </div>
                                 <div class="row mt-4">
@@ -215,7 +216,8 @@
                         $('.updatedAt').text(moment(data.updated_at).format('Y-MM-DD HH:mm'));
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         $('.dateRDV').text( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
-                        $('.siteClient').attr("href","http://www.test.com/");
+                        // $('.siteClient').text(data.siteweb);
+                        document.querySelector('.siteClient').setAttribute('href', 'http://google.com');
                     },
                     error:function(error){
                         console.log(error);
@@ -239,7 +241,6 @@
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
         });
-
         $.get("{{ route('get-users')}}",function(data,status){
                 console.log(data);
                 data.forEach(element => {
@@ -248,23 +249,6 @@
                     $('#assignedToCreate').append(new Option(element.name, element.id));
                 });
         });
-        //  $.get("{{ route('get-users')}}",function(data,status){
-        //         console.log(data);
-        //         data.forEach(element => {
-        //             console.log(element.id);
-        //             $('#assignedTo').append(new Option(element.name, element.id));
-        //         });
-        //     });    
-        // $('#assignedTo').on('click',function(){
-        //     console.log('clicked sur assignedTo');
-        //     $.get("{{ route('get-users')}}",function(data,status){
-        //         console.log(data);
-        //         data.forEach(element => {
-        //             console.log(element.id);
-        //             $('#assignedTo').append(new Option(element.name, element.id));
-        //         });
-        //     });
-        // });
     });
 </script>
 @endsection
