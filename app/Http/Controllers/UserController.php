@@ -96,6 +96,10 @@ class UserController extends Controller
 
     public function getUsersList(Request $request){
 
+        if(Auth::user()->role == 'admin'){
+            $user = User::all();
+        }
+
         if(Auth::user()->role == 'vendeur'){
             $user = User::where('role','=','webmaster')->get();
         }
@@ -103,6 +107,20 @@ class UserController extends Controller
         if(Auth::user()->role == 'webmaster'){
             $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->get();
         }
+
+        if(Auth::user()->role == 'superviseur'){
+            $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->get();
+        }
+
+        if(Auth::user()->role == 'assistant'){
+            $user = User::where('role','=','webmaster')->get();
+        }
+
+        if(Auth::user()->role == 'superviseur'){
+            $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->orWhere('role','=','vendeur')->get();
+        }
+
+        
         
         return response()->json($user,200);
     }

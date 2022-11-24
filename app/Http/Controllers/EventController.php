@@ -34,6 +34,24 @@ class EventController extends Controller
             return response()->json($data,200);
         }
 
+        if(auth()->user()->role == 'assistant'){
+            $data = Event::whereHas('user',function(Builder $query){
+                $query->where('role','=','webmaster')->orWhere('role','=','assistant');
+            })->get();
+            return response()->json($data,200);
+        }
+
+
+        if(auth()->user()->role == 'superviseur'){
+            $data = Event::whereHas('user',function(Builder $query){
+                $query->where('role','=','webmaster')->orWhere('role','=','vendeur')->orWhere('role','=','assistant');
+            })->get();
+            return response()->json($data,200);
+        }
+
+
+
+
     }
 
     public function eventCreate(Request $request){
