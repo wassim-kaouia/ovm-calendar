@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -94,7 +95,14 @@ class UserController extends Controller
     }
 
     public function getUsersList(Request $request){
-        $user = User::all();
+
+        if(Auth::user()->role == 'vendeur'){
+            $user = User::where('role','=','webmaster')->get();
+        }
+        
+        if(Auth::user()->role == 'webmaster'){
+            $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->get();
+        }
         
         return response()->json($user,200);
     }
@@ -173,6 +181,20 @@ class UserController extends Controller
         $user->save();
         
         Alert::success('Success', "L'utilisateur est créé avec succès !");
+        return redirect()->back();
+    }
+
+    public function destroyUser($id){
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        if($user){
+            Alert::success('Success', "L'utilisateur est supprimé avec succès !");
+            return redirect()->back();
+        }
+
+        Alert::error('Error', 'Erreur de Suppression !');
         return redirect()->back();
     }
 }

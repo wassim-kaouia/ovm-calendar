@@ -48,14 +48,13 @@
                             <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
                             <label>Nom Client : <b class="nameClient"></b></label><br>
                             <label>Numero Client  : <b class="phoneClient"></b></label><br>
-                            <label>Site de Client : <a href='http://google.com' class="siteClient" id="siteClient"></a></label><br>
+                            <label>Site de Client : <b class="siteClient" id="siteClient"></b></label><br>
                             <label>Description : <p class="description"></p></label><br>
                             <label>Assigné par : <b class="createdBy"></b> </label><br>
                             <label>Assigné à : <b class="assignedTo"></b> </label><br>
                             <label>Role d'employé : <b class="roleEmployee"></b> </label><br>
                             <label>Date de création : <b class="createdAt"></b></label><br><br>
                             <label>Date de Mise à jour : <b class="updatedAt"></b></label><br><br>
-                            <a href="" class="siteClient">ok</a>
                         </div>
                         <form action="{{ route('event-update') }}" method="POST">
                             @csrf
@@ -216,8 +215,7 @@
                         $('.updatedAt').text(moment(data.updated_at).format('Y-MM-DD HH:mm'));
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         $('.dateRDV').text( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
-                        // $('.siteClient').text(data.siteweb);
-                        document.querySelector('.siteClient').setAttribute('href', 'http://google.com');
+                        $('.siteClient').text(data.siteweb);
                     },
                     error:function(error){
                         console.log(error);

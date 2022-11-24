@@ -13,7 +13,8 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('assignedBy')->nullable();
             $table->dateTime('assignementDate')->nullable();
             $table->text('description')->nullable();

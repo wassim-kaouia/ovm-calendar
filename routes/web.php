@@ -45,6 +45,7 @@ Route::get('/user/profile/{id}',[UserController::class,'getProfile'])->name('get
 Route::post('/user/updateProfile',[UserController::class,'updateProfile'])->name('update-profile')->middleware('auth');
 Route::get('/user/add/page',[UserController::class,'getAddPage'])->name('get-add-page')->middleware('auth');
 Route::post('/user/add/',[UserController::class,'addNewUser'])->name('post-new-user')->middleware('auth');
+Route::delete('/user/delete/{id}',[UserController::class,'destroyUser'])->name('user-delete')->middleware('auth');
 
 Route::get('/logs',[LogController::class,'index'])->name('logs.index')->middleware('auth');
 Route::get('/detailsLogs/{id}',[LogController::class,'show'])->name('logs.show')->middleware('auth');

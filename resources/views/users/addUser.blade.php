@@ -90,9 +90,10 @@
                         <div class="col-md-10">
                             <select name="role" id="role" class="form-control">
                                 <option  value="admin">Administrateur</option>
-                                <option  value="vendor">Vendeur</option>
-                                <option  value="assistant">Assistance</option>
-                                <option  value="supervisor">Superviseur</option>
+                                <option  value="vendeur">Vendeur</option>
+                                <option  value="assistant">Assistant(e)</option>
+                                <option  value="superviseur">Superviseur</option>
+                                <option  value="webmaster">Webmaster</option>
                             </select>
                         </div>
                     </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -14,15 +16,24 @@ class EventController extends Controller
     public function index(Request $request){
 
         if(auth()->user()->role == 'admin'){
-            // $data = Event::latest()->get();
             $data = Event::all();
             return response()->json($data,200);
         }
 
-        if(auth()->user()->role == 'vendor' || auth()->user()->role == 'assistant'){
-            $data = Event::where('user_id','=',auth()->user()->id)->get();
+        if(auth()->user()->role == 'vendeur'){
+            $data = Event::whereHas('user',function(Builder $query){
+                $query->where('role','=','webmaster')->orWhere('role','=','vendeur');
+            })->get();
             return response()->json($data,200);
         }
+        
+        if(auth()->user()->role == 'webmaster'){
+            $data = Event::whereHas('user',function(Builder $query){
+                $query->where('role','=','webmaster')->orWhere('role','=','vendeur')->orWhere('role','=','assistant');
+            })->get();
+            return response()->json($data,200);
+        }
+
     }
 
     public function eventCreate(Request $request){
@@ -44,6 +55,7 @@ class EventController extends Controller
             'status' => 'required',
             'siteweb' => 'string',
         ]);
+
         if($data){ 
             $event = new Event();
             $event->title = $request->title;
@@ -62,7 +74,6 @@ class EventController extends Controller
 
             $event->assignedBy = auth()->user()->name;
             $event->assignementDate = now();
-
             $event->save();
 
             if($event){
@@ -84,6 +95,7 @@ class EventController extends Controller
     }
     
     public function getAssignedToName(Request $request,$id){
+        
         $assignedTo = User::findOrFail($id)->name;
         return response()->json($assignedTo,200);
     }

@@ -38,7 +38,13 @@
     <div class="card text-center" >
         <div class="card-body" style="position: relative">
             <div style="position: absolute; right: 20px; top:20px">
-                <a href="" style="font-size: 30px;"><i class="bx bxs-trash" style="color:rgb(247, 81, 81)"></i></a>
+                @if ($user->role != 'admin')
+                <form action="{{ route('user-delete',['id' => $user->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn" type="submit"  style="font-size: 30px;"><i class="bx bxs-trash" style="color:rgb(247, 81, 81)"></i></button>
+                </form>
+                @endif
             </div>
             <div class="mb-4">
                 <img class="rounded-circle avatar-sm" src="{{ URL('storage/'.$user->avatar) }}" alt="">

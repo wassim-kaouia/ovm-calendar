@@ -77,11 +77,12 @@
                     <div class="col-md-12">
                         <div class="mb-6">
                             <label for="role" class="form-label">Role</label>
-                            <select name="role" id="role" class="form-control">
+                            <select name="role" id="role" class="form-control" {{ $user->role == 'admin' ? 'disabled' : '' }}>
                                 <option {{$user->role == 'admin' ? 'selected' : ''}} value="admin">Administrateur</option>
-                                <option {{$user->role == 'vendor' ? 'selected' : ''}} value="vendor">Vendeur</option>
-                                <option {{$user->role == 'assistant' ? 'selected' : ''}} value="assistant">Assistance</option>
-                                <option {{$user->role == 'superviseur' ? 'selected' : ''}} value="supervisor">Superviseur</option>
+                                <option {{$user->role == 'vendeur' ? 'selected' : ''}} value="vendeur">Vendeur</option>
+                                <option {{$user->role == 'assistant' ? 'selected' : ''}} value="assistant">Assistant(e)</option>
+                                <option {{$user->role == 'superviseur' ? 'selected' : ''}} value="superviseur">Superviseur</option>
+                                <option {{$user->role == 'webmaster' ? 'selected' : ''}} value="webmaster">Webmaster</option>
                             </select>
                         </div>
                     </div>
