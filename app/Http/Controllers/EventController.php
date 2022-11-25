@@ -71,7 +71,6 @@ class EventController extends Controller
             'phone_client' => 'required',
             'name_client' => 'required',
             'status' => 'required',
-            'siteweb' => 'string',
         ]);
 
         if($data){ 
