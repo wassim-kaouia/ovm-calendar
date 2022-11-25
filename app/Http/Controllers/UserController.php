@@ -51,7 +51,6 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        // dd($request->all());
         $data = $request->validate([
             'name' => 'required|min:4|String',
             'email' => 'required|email',
@@ -59,6 +58,7 @@ class UserController extends Controller
             'textColor' => 'required|String',
             'role' => 'required|String',
         ]);
+        // dd($request->user_id);
 
         if($data){
             $user = User::find($request->user_id);
@@ -144,7 +144,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name'     => 'required',
             'email'    => 'email',
-            'avatar'   => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'avatar'   => 'image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         
         if($validator->fails()){

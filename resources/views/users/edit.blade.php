@@ -77,6 +77,7 @@
                     <div class="col-md-12">
                         <div class="mb-6">
                             <label for="role" class="form-label">Role</label>
+                            <input type="hidden" value="{{ Auth::user()->role == 'admin' ? 'admin' : '' }}" name="role" >
                             <select name="role" id="role" class="form-control" {{ $user->role == 'admin' ? 'disabled' : '' }}>
                                 <option {{$user->role == 'admin' ? 'selected' : ''}} value="admin">Administrateur</option>
                                 <option {{$user->role == 'vendeur' ? 'selected' : ''}} value="vendeur">Vendeur</option>

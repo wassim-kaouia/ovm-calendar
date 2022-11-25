@@ -89,6 +89,7 @@
                         <div class="col-md-10">
                           <input class="form-control" id="formFileSm" type="file" name="avatar">     
                           <div class="mt-4">
+                            <p>{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}</p>
                             <img width="100" src="{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}" alt="Avatar de profile">
                           </div>             
                         </div>
