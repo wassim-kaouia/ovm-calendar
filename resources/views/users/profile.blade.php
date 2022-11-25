@@ -88,9 +88,10 @@
                         <label for="example-color-input" class="col-md-2 col-form-label">Avatar</label>
                         <div class="col-md-10">
                           <input class="form-control" id="formFileSm" type="file" name="avatar">     
+                          <p>{{ URL('storage/'.Auth::user()->avatar) }}</p>
                           <div class="mt-4">
-                            <p>{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}</p>
-                            <img width="100" src="{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}" alt="Avatar de profile">
+                            {{-- <p>{{ Auth::user()->avatar == 'avatar/default/avatar.png' ? asset(Auth::user()->avatar) : URL('storage/'.Auth::user()->avatar) }}</p> --}}
+                            <img width="100" src="{{ URL(Auth::user()->avatar) }}" alt="Avatar de profile">
                           </div>             
                         </div>
                     </div>
