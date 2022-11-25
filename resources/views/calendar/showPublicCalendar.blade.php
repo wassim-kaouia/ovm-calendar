@@ -47,7 +47,7 @@
                             <label>Date de RDV : <b class="dateRDV"></b> </label><br>
                             <label>Nom d'employé : <b class="nameOfEmployee"></b></label><br>
                             <label>Nom Client : <b class="nameClient"></b></label><br>
-                            <label>Numero Client  : <b class="phoneClient"></b></label><br>
+                            <label>Telephone Client  : <b class="phoneClient"></b></label><br>
                             <label>Site de Client : <b class="siteClient" id="siteClient"></b></label><br>
                             <label>Description : <p class="description"></p></label><br>
                             <label>Assigné par : <b class="createdBy"></b> </label><br>
@@ -128,7 +128,7 @@
                             <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                             <label for="phone_client">Nom De Client:</label>
                             <input id="phone_client" class="form-control" type="text" name="phone_client">
-                            <label for="name_client">Numero de Client:</label>
+                            <label for="name_client">Telephone Client:</label>
                             <input id="title" class="form-control" type="number" name="name_client">
                             <label for="statut">Statut:</label>
                             <select id="statut" class="form-control" name="status" id="status">
