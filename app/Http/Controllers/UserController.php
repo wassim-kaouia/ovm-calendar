@@ -17,7 +17,7 @@ class UserController extends Controller
     
     public function index()
     {
-        $users = User::all();
+        $users = User::all(); 
 
         return view('users.index',[
             'users' => $users
@@ -93,7 +93,7 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
-
+    
     public function getUsersList(Request $request){
 
         if(Auth::user()->role == 'admin'){
@@ -120,8 +120,6 @@ class UserController extends Controller
             $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->orWhere('role','=','vendeur')->get();
         }
 
-        
-        
         return response()->json($user,200);
     }
     
