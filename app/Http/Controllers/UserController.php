@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,8 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required|min:4|String',
             'email' => 'required|email',
+            'color' => 'required|String',
+            'textColor' => 'required|String',
             'role' => 'required|String',
         ]);
         // dd($request->user_id);
@@ -126,6 +129,9 @@ class UserController extends Controller
     }
 
     public function getProfile(Request $request,$id){
+
+
+
         $profile = User::findOrFail($id);
         return view('users.profile',[
             'profile' => $profile
