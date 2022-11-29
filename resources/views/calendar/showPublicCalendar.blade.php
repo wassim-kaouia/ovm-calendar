@@ -127,7 +127,7 @@
                             <label for="description">Description: <b class="text-danger" >*</b></label>
                             <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                             <label for="phone_client">Nom De Client: <b class="text-danger" >*</b></label>
-                            <input id="phone_client" class="form-control" type="text" name="phone_client" value="">
+                            <input id="phone_client" class="form-control" type="text" name="phone_client" value="null">
                             <label for="name_client">Telephone Client:</label>
                             <input id="title" class="form-control" type="number" name="name_client">
                             <label for="statut">Statut:</label>
