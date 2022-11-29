@@ -17,41 +17,11 @@ use Spatie\Activitylog\Models\Activity;
 |
 */
 
-// Route::get('/', function () {
-//     return view('calendar.index');
-// });
-
 Route::get('/', function () {
-    // return Activity::all();
-    return view('calendar.showPublicCalendar');
-})->name('calendrier-index')->middleware('auth');
-
-Route::get('/getavatar',function(){
-    return asset('avatar/default/avatar.png');
+    return view('calendar.index');
 });
 
-Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar')->middleware('auth');
-Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post')->middleware('auth');
-Route::put('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
-Route::delete('event/delete',[EventController::class,'eventDelete'])->name('event-delete')->middleware('auth');
-Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('get.event')->middleware('auth');
-Route::get('/getAssignedToName/{id}',[EventController::class,'getAssignedToName'])->name('get.assignedto')->middleware('auth');
-Route::get('/checkVendorUpdatability/{id}',[EventController::class,'checkVendorUpdatability'])->name('get-vendor-access-to-update');
 
-
-Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware(['auth','isAdmin']);
-Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
-Route::put('/userUpdate',[UserController::class,'update'])->name('users-update')->middleware('auth');
-Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get-users')->middleware('auth');
-Route::get('/user/profile/{id}',[UserController::class,'getProfile'])->name('get-profile')->middleware('auth');
-Route::post('/user/updateProfile',[UserController::class,'updateProfile'])->name('update-profile')->middleware('auth');
-Route::get('/user/add/page',[UserController::class,'getAddPage'])->name('get-add-page')->middleware(['auth','isAdmin']);
-Route::post('/user/add/',[UserController::class,'addNewUser'])->name('post-new-user')->middleware('auth');
-Route::delete('/user/delete/{id}',[UserController::class,'destroyUser'])->name('user-delete')->middleware('auth');
-
-Route::get('/logs',[LogController::class,'index'])->name('logs.index')->middleware('auth');
-Route::get('/detailsLogs/{id}',[LogController::class,'show'])->name('logs.show')->middleware('auth');
-
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
