@@ -112,7 +112,7 @@
                     @csrf
                     <div id="modalBody" class="modal-body">
                         <div>
-                            <label for="title">Titre:</label>
+                            <label for="title">Titre: <b class="text-danger" >*</b></label>
                             <input id="title" class="form-control" type="text" name="title" value="" placeholder="">
                             <label for="assignedBy">Assigné par:</label>
                             <input class="form-control" type="text" name="assignedBy" value="{{ Auth::user()->name }}" disabled>
@@ -122,11 +122,11 @@
                             </select>
                             <label for="siteweb">Site Web:</label>
                             <input class="form-control" type="text" name="siteweb" value="" placeholder="">
-                            <label for="start">Date de Rendez-vous:</label>
+                            <label for="start">Date de Rendez-vous: <b class="text-danger" >*</b></label>
                             <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
-                            <label for="description">Description:</label>
+                            <label for="description">Description: <b class="text-danger" >*</b></label>
                             <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
-                            <label for="phone_client">Nom De Client:</label>
+                            <label for="phone_client">Nom De Client: <b class="text-danger" >*</b></label>
                             <input id="phone_client" class="form-control" type="text" name="phone_client">
                             <label for="name_client">Telephone Client:</label>
                             <input id="title" class="form-control" type="number" name="name_client">
