@@ -55,7 +55,6 @@ class EventController extends Controller
         // check wether the request has title
         if(!$request->filled('title') || !$request->filled('assignedTo') || !$request->filled('start') ||
         !$request->filled('description') || !$request->filled('name_client') || !$request->filled('status') 
-
         ){
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
