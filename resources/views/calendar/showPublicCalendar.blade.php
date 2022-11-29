@@ -126,10 +126,10 @@
                             <input class="form-control datepicker" type="text" name="start" id="start" data-provide="datepicker">
                             <label for="description">Description: <b class="text-danger" >*</b></label>
                             <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
-                            <label for="name_client">Nom De Client: <b class="text-danger" >*</b></label>
-                            <input id="name_client" class="form-control" type="text" name="name_client" >
+                            <label for="name_client">Nom De Client: <b class="text-danger" >**</b></label>
+                            <input id="name_client" class="form-control" type="text" name="name_client">
                             <label for="phone_client">Telephone Client:</label>
-                            <input id="title" class="form-control" type="number" name="phone_client">
+                            <input id="title" class="form-control" type="number" name="phone_client" value="">
                             <label for="statut">Statut:</label>
                             <select id="statut" class="form-control" name="status" id="status">
                                 <option value="closed">Fermé</option>
