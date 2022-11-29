@@ -29,7 +29,7 @@ class EventController extends Controller
         
         if(auth()->user()->role == 'webmaster'){
             $data = Event::whereHas('user',function(Builder $query){
-                $query->where('role','=','webmaster')->orWhere('role','=','vendeur')->orWhere('role','=','assistant');
+                $query->where('role','=','webmaster')->orWhere('role','=','assistant');
             })->get();
             return response()->json($data,200);
         }
