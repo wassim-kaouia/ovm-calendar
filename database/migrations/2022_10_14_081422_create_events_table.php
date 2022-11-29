@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('assignementDate')->nullable();
             $table->text('description')->nullable();
             $table->string('siteweb')->nullable();
-            $table->string('phone_client');
+            $table->string('phone_client')->nullable();
             $table->string('name_client');
             $table->string('status');
             $table->string('priority');
