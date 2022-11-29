@@ -49,9 +49,6 @@ class EventController extends Controller
             return response()->json($data,200);
         }
 
-
-
-
     }
 
     public function eventCreate(Request $request){
@@ -115,6 +112,16 @@ class EventController extends Controller
         
         $assignedTo = User::findOrFail($id)->name;
         return response()->json($assignedTo,200);
+    }
+
+    public function checkVendorUpdatability($id){    
+        if(Auth::user()->role == 'vendeur' && Auth::user()->id == $id ){
+            return response()->json('vendorCanUpdate',200);
+        }else if(Auth::user()->role == 'vendeur' && Auth::user()->id != $id){
+            return response()->json('vendorCantUpdate',200);
+        }else{
+            return response()->json('freeAccess',200);
+        }
     }
 
     public function eventUpdate(Request $request){

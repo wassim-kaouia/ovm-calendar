@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-md-6 col-sm-6">
-                                        <button type="submit" class="btn btn-success" data-dismiss="modal">Mettre a jour</button>
+                                        <button type="submit" class="btn btn-success" id="updateBtn" data-dismiss="modal">Mettre a jour</button>
                                     </div>
                                     {{-- <div class="col-md-6 col-sm-6">
                                         <button type="submit" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
@@ -186,6 +186,17 @@
                     url:'{{ url("/getEventById") }}'+"/"+event.id,
                     type:'GET',
                     success: function(data){
+                        $.get('{{ url("/checkVendorUpdatability") }}'+"/"+data.user_id,function(userData,status){
+                            console.log('data from api: '+userData);
+                            console.log('user id of event: '+data.user_id);
+                            if(userData == 'vendorCanUpdate'){
+                                $('#updateBtn').attr('disabled',false);
+                            }else if(userData == 'vendorCantUpdate'){
+                            $('#updateBtn').attr('disabled',true);
+                            }else{
+                            $('#updateBtn').attr('disabled',false);
+                            }
+                        });
                         var userid = data.user_id;
                         console.log(data);
                         $('#title').val(data.title);
@@ -207,9 +218,13 @@
                         }
                         $('.phoneClient').text(data.phone_client);
                         $('#assignedByInput').val(data.assignedBy);
-                        $.get('{{ url("/getAssignedToName") }}'+"/"+data.user_id,function(data,status){
-                            console.log(data);
-                            $('.assignedTo').text(data);
+                        $.get('{{ url("/getAssignedToName") }}'+"/"+data.user_id,function(newData,status){
+                            console.log('hey:'+newData);
+                            console.log(data.assignedBy == newData);
+                            $('.assignedTo').text(newData);
+                            // if(data.assignedBy != newData){
+                            //     $('#updateBtn').attr('disabled',true);
+                            // }
                         });
                         $('.createdAt').text(moment(data.created_at).format('Y-MM-DD HH:mm'));
                         $('.updatedAt').text(moment(data.updated_at).format('Y-MM-DD HH:mm'));

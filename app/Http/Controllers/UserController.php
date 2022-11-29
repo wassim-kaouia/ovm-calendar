@@ -215,4 +215,6 @@ class UserController extends Controller
         Alert::error('Error', 'Erreur de Suppression !');
         return redirect()->back();
     }
+
+    
 }
