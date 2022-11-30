@@ -38,7 +38,6 @@ Route::get('/getEventById/{id}',[EventController::class,'getEventById'])->name('
 Route::get('/getAssignedToName/{id}',[EventController::class,'getAssignedToName'])->name('get.assignedto')->middleware('auth');
 Route::get('/checkVendorUpdatability/{id}',[EventController::class,'checkVendorUpdatability'])->name('get-vendor-access-to-update');
 
-
 Route::get('/users',[UserController::class,'index'])->name('users-list')->middleware(['auth','isAdmin']);
 Route::get('/userEditPage/{id}',[UserController::class,'edit'])->name('users-edit')->middleware('auth');
 Route::put('/userUpdate',[UserController::class,'update'])->name('users-update')->middleware('auth');

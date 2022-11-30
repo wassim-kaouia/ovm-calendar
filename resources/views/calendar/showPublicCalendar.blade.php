@@ -165,7 +165,12 @@
         //activate fullcalendar and edit its attributes
         var calendar = $('#calendar').fullCalendar({
             editable:true,
-            selectable: true,    
+            selectable: true,   
+            //new lines of code : to block previous days in the past
+            selectConstraint: {
+            start: moment().format('Y-MM-DD HH:mm'),
+            end: '2200-01-01'
+            },
             header:{
                 left:'prev,next,today',
                 center:'title',
@@ -174,10 +179,23 @@
             events:'{{ route('full.calendar') }}',
             selectHelper:false,
             dayClick:function(date,event,view){
+                
                 var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm');
+                var currectDate = moment().format('Y-MM-DD');
+                var selectedDay = moment(date).format('Y-MM-DD');
                 document.getElementById('start').value = start;
-                $('#calendarModal').modal("show");
-                console.log('prompted');
+
+                console.log(moment().format('Y-MM-DD'));
+                console.log(moment(date).format('Y-MM-DD'));
+
+                if( selectedDay < currectDate ){
+                    console.log('clicked on date in the past');
+                }else{
+                    console.log('good to go !');
+                    $('#calendarModal').modal("show");
+                    console.log('prompted');
+                }
+               
             },
             eventClick:function(event){
                 console.log('event opened!'+event.id);
