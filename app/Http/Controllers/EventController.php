@@ -122,6 +122,7 @@ class EventController extends Controller
     }
 
     public function eventUpdate(Request $request){
+        // dd($request->all());
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
@@ -129,6 +130,7 @@ class EventController extends Controller
         $event = Event::find($request->event_id);
         
         $event->title = $request->title;
+        $event->name_client = $request->name == null ? $event->name_client : $request->name;
         $event->description = $request->description;
         $event->start = $request->start;
         $event->end = $request->start;

@@ -74,6 +74,8 @@
                                 <input class="form-control" type="color" name="color" id="color" disabled>
                                 <label for="title">Coleur de Texte de Rendez-vous:</label>
                                 <input class="form-control" type="color" name="textColor" id="textColor" disabled>
+                                <label for="name">Nom Client:</label>
+                                <input id="name" class="form-control" type="text" name="name" value="" placeholder="">
                                 <label for="description">Description:</label>
                                 <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                                 <label for="statut">Statut:</label>
@@ -195,7 +197,6 @@
                     $('#calendarModal').modal("show");
                     console.log('prompted');
                 }
-               
             },
             eventClick:function(event){
                 console.log('event opened!'+event.id);
@@ -224,6 +225,7 @@
                         $('#description').val(data.description);
                         $('.description').text(data.description);
                         $('#status').val(data.status);
+                        $('#name').val(data.name_client);
                         $('.nameOfEmployee').text(data.user.name);
                         $('.roleEmployee').text(data.user.role);
                         $('.createdBy').text(data.assignedBy);
