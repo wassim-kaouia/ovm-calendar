@@ -47,7 +47,6 @@ class EventController extends Controller
             })->get();
             return response()->json($data,200);
         }
-
     }
 
     public function eventCreate(Request $request){
@@ -135,6 +134,12 @@ class EventController extends Controller
         $event->start = $request->start;
         $event->end = $request->start;
         $event->user_id = $request->assignedTo == '0' ? $event->user_id : $request->assignedTo;
+
+        //bring the user to get his colors
+        $user = User::findOrFail($event->user_id);
+        $event->color = $user->color;
+        $event->textColor = $user->textColor;
+
         $event->priority = $request->priority == 'on' ? '1' : '0';
         // $event->assignedBy
         $event->status = $request->status;
