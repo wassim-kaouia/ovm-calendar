@@ -160,7 +160,31 @@
                             <li class="mm-active">
                                 <a href="{{ route('calendrier-index') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
-                                    <span key="t-starter-page">Calendrier</span>
+                                    <span key="t-starter-page">Tous Calendriers</span>
+                                </a>
+                            </li>
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-assistant') }}" class="waves-effect active">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-starter-page">{!! Auth::user()->email == 'eva.mary@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Fatima' !!}</span>
+                                </a>
+                            </li>
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-vendor') }}" class="waves-effect active">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-starter-page">{!! Auth::user()->email == 'jeanpierre@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Joao Pedro' !!}</span>
+                                </a>
+                            </li>
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-supervisor') }}" class="waves-effect active">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-starter-page">{!! Auth::user()->email == 'emilie.motte@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Andrea' !!}</span>
+                                </a>
+                            </li>
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-webmaster') }}" class="waves-effect active">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-starter-page">{!! Auth::user()->email == 'lucie.peron@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Alicia' !!}</span>
                                 </a>
                             </li>
                         </ul>

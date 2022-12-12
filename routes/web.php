@@ -22,15 +22,37 @@ use Spatie\Activitylog\Models\Activity;
 // });
 
 Route::get('/', function () {
-    // return Activity::all();
     return view('calendar.showPublicCalendar');
 })->name('calendrier-index')->middleware('auth');
+
+Route::get('/assistantCalendar', function () {
+    return view('calendar.calendar-assistant');
+})->name('calendrier-assistant')->middleware(['auth','isAssistant']);
+
+Route::get('/webmasterCalendar', function () {
+    return view('calendar.calendar-webmaster');
+})->name('calendrier-webmaster')->middleware(['auth','isWebmaster']);
+
+Route::get('/supervisorCalendar', function () {
+    return view('calendar.calendar-supervisor');
+})->name('calendrier-supervisor')->middleware(['auth','isSupervisor']);
+
+Route::get('/vendorCalendar', function () {
+    return view('calendar.calendar-vendor');
+})->name('calendrier-vendor')->middleware(['auth','isVendor']);
+
 
 Route::get('/getavatar',function(){
     return asset('avatar/default/avatar.png');
 });
 
 Route::get('/full-calendar',[EventController::class,'index'])->name('full.calendar')->middleware('auth');
+Route::get('/full-calendar-assistant',[EventController::class,'indexAssistant'])->name('full.calendar.assistant')->middleware('auth');
+Route::get('/full-calendar-webmaster',[EventController::class,'indexWebmaster'])->name('full.calendar.webmaster')->middleware('auth');
+Route::get('/full-calendar-supervisor',[EventController::class,'indexSupervisor'])->name('full.calendar.supervisor')->middleware('auth');
+Route::get('/full-calendar-vendor',[EventController::class,'indexVendor'])->name('full.calendar.vendor')->middleware('auth');
+
+
 Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post')->middleware('auth');
 Route::put('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
 Route::delete('event/delete',[EventController::class,'eventDelete'])->name('event-delete')->middleware('auth');

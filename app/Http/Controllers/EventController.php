@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
-
 class EventController extends Controller
 {
     public function index(Request $request){
@@ -47,6 +46,34 @@ class EventController extends Controller
             })->get();
             return response()->json($data,200);
         }
+    }
+
+    public function indexAssistant(){
+        $data = Event::whereHas('user',function(Builder $query){
+            $query->where('role','=','assistant');
+        })->get();
+        return response()->json($data,200);
+    }
+
+    public function indexWebmaster(){
+        $data = Event::whereHas('user',function(Builder $query){
+            $query->where('role','=','webmaster');
+        })->get();
+        return response()->json($data,200);
+    }
+
+    public function indexVendor(){
+        $data = Event::whereHas('user',function(Builder $query){
+            $query->where('role','=','vendeur');
+        })->get();
+        return response()->json($data,200);
+    }
+
+    public function indexSupervisor(){
+        $data = Event::whereHas('user',function(Builder $query){
+            $query->where('role','=','superviseur');
+        })->get();
+        return response()->json($data,200);
     }
 
     public function eventCreate(Request $request){
@@ -121,7 +148,7 @@ class EventController extends Controller
     }
 
     public function eventUpdate(Request $request){
-        // dd($request->all());
+        
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
@@ -134,7 +161,7 @@ class EventController extends Controller
         $event->start = $request->start;
         $event->end = $request->start;
         $event->user_id = $request->assignedTo == '0' ? $event->user_id : $request->assignedTo;
-
+        
         //bring the user to get his colors
         $user = User::findOrFail($event->user_id);
         $event->color = $user->color;
@@ -149,3 +176,7 @@ class EventController extends Controller
         return redirect()->back();
     }
 }
+
+
+
+

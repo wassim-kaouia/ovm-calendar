@@ -129,9 +129,6 @@ class UserController extends Controller
     }
 
     public function getProfile(Request $request,$id){
-
-
-
         $profile = User::findOrFail($id);
         return view('users.profile',[
             'profile' => $profile
@@ -213,6 +210,5 @@ class UserController extends Controller
         Alert::error('Error', 'Erreur de Suppression !');
         return redirect()->back();
     }
-
     
 }

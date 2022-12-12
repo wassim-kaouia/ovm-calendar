@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18 text-danger">Calendrier</h4>
+            <h4 class="mb-sm-0 font-size-18 text-danger">Calendrier Webmaster</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Calendrier</a></li>
@@ -178,7 +178,7 @@
                 center:'title',
                 right:'month,agendaWeek,agendaDay',
             },
-            events:'{{ route('full.calendar') }}',
+            events:'{{ route('full.calendar.webmaster') }}',
             selectHelper:false,
             dayClick:function(date,event,view){
                 
