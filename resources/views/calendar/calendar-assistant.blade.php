@@ -13,7 +13,7 @@
 @endsection
 
 @section('mytitle')
-    
+    Assistant(e)
 @endsection
 
 @section('content')

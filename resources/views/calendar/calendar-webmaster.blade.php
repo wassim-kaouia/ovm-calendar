@@ -13,7 +13,7 @@
 @endsection
 
 @section('mytitle')
-    
+    Webmaster
 @endsection
 
 @section('content')

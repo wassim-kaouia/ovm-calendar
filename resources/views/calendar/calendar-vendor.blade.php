@@ -13,7 +13,7 @@
 @endsection
 
 @section('mytitle')
-    
+    Vendeur
 @endsection
 
 @section('content')

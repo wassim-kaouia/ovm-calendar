@@ -13,7 +13,7 @@
 @endsection
 
 @section('mytitle')
-    
+  WassCalendario    
 @endsection
 
 @section('content')

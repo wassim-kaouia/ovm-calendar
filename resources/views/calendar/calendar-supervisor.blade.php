@@ -13,7 +13,7 @@
 @endsection
 
 @section('mytitle')
-    
+Superviseur
 @endsection
 
 @section('content')
@@ -181,7 +181,6 @@
             events:'{{ route('full.calendar.supervisor') }}',
             selectHelper:false,
             dayClick:function(date,event,view){
-                
                 var start = $.fullCalendar.formatDate(date,'Y-MM-DD HH:mm');
                 var currectDate = moment().format('Y-MM-DD');
                 var selectedDay = moment(date).format('Y-MM-DD');
