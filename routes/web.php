@@ -41,7 +41,6 @@ Route::get('/vendorCalendar', function () {
     return view('calendar.calendar-vendor');
 })->name('calendrier-vendor')->middleware(['auth','isVendor']);
 
-
 Route::get('/getavatar',function(){
     return asset('avatar/default/avatar.png');
 });
@@ -51,7 +50,6 @@ Route::get('/full-calendar-assistant',[EventController::class,'indexAssistant'])
 Route::get('/full-calendar-webmaster',[EventController::class,'indexWebmaster'])->name('full.calendar.webmaster')->middleware('auth');
 Route::get('/full-calendar-supervisor',[EventController::class,'indexSupervisor'])->name('full.calendar.supervisor')->middleware('auth');
 Route::get('/full-calendar-vendor',[EventController::class,'indexVendor'])->name('full.calendar.vendor')->middleware('auth');
-
 
 Route::post('/event/create',[EventController::class,'eventCreate'])->name('event-post')->middleware('auth');
 Route::put('/event/update',[EventController::class,'eventUpdate'])->name('event-update')->middleware('auth');
@@ -69,7 +67,7 @@ Route::post('/user/updateProfile',[UserController::class,'updateProfile'])->name
 Route::get('/user/add/page',[UserController::class,'getAddPage'])->name('get-add-page')->middleware(['auth','isAdmin']);
 Route::post('/user/add/',[UserController::class,'addNewUser'])->name('post-new-user')->middleware('auth');
 Route::delete('/user/delete/{id}',[UserController::class,'destroyUser'])->name('user-delete')->middleware('auth');
-
+ 
 Route::get('/logs',[LogController::class,'index'])->name('logs.index')->middleware('auth');
 Route::get('/detailsLogs/{id}',[LogController::class,'show'])->name('logs.show')->middleware('auth');
 

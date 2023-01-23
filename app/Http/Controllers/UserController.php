@@ -119,13 +119,13 @@ class UserController extends Controller
         if(Auth::user()->role == 'superviseur'){
             $user = User::where('role','=','webmaster')->orWhere('role','=','assistant')->orWhere('role','=','vendeur')->get();
         }
-
+        
         return response()->json($user,200);
     }
     
     public function destroy(User $user)
     {
-        
+       
     }
 
     public function getProfile(Request $request,$id){

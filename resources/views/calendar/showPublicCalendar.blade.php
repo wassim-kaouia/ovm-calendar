@@ -92,16 +92,25 @@
                                         Prioritaire 
                                     </label>
                                 </div>
-                                <div class="row mt-4">
-                                    <div class="col-md-6 col-sm-6">
+                                <div class="mt-4 mb-2 d-flex justify-content-start">
+                                    <div class="">
                                         <button type="submit" class="btn btn-success" id="updateBtn" data-dismiss="modal">Mettre a jour</button>
                                     </div>
-                                    {{-- <div class="col-md-6 col-sm-6">
-                                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
-                                    </div> --}}
+                    
                                 </div>
                             </div>
                         </form>
+
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                        <form action="{{ route('event-delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <div class="">
+                                <input type="hidden" value="" name="eventId" id="eventId">
+                                <button type="submit" class="btn btn-danger" id="deleteBtn" data-dismiss="modal">Supprimer</button>
+                            </div>
+                        </form>
+                        @endif
                     </div>
                   </div>
             </div>
@@ -251,11 +260,21 @@
                         $('#start').val( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         $('.dateRDV').text( $.fullCalendar.formatDate(event.start,'Y-MM-DD HH:mm'));
                         $('.siteClient').text(data.siteweb);
+
+                        $('#deleteBtn').on('click',function(){
+                            console.log('btn delete clicked');
+                            $('#eventId').val(event.id);
+                         });
+
                     },
                     error:function(error){
                         console.log(error);
                     },
-                }
+                   
+                },
+
+              
+
                 );
             },
         });

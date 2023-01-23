@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,15 +75,16 @@ class EventController extends Controller
         })->get();
         return response()->json($data,200);
     }
-
+    
     public function eventCreate(Request $request){
-        // check wether the request has title
+        // check wether the request has title 
         if(!$request->filled('title') || !$request->filled('assignedTo') || !$request->filled('start') ||
         !$request->filled('description') || !$request->filled('name_client') || !$request->filled('status') 
         ){
             Alert::error('Création de rendez-vous', 'Vous devez remplir tous les champs obligatoires !');
             return redirect('/');
         }
+
         $data = $request->validate([
             'title' => 'required',
             'assignedTo' => 'required|numeric',
@@ -92,7 +93,7 @@ class EventController extends Controller
             'name_client' => 'required',
             'status' => 'required',
         ]);
-
+        
         if($data){ 
             $event = new Event();
             $event->title = $request->title;
@@ -132,7 +133,6 @@ class EventController extends Controller
     }
     
     public function getAssignedToName(Request $request,$id){
-        
         $assignedTo = User::findOrFail($id)->name;
         return response()->json($assignedTo,200);
     }
@@ -147,12 +147,14 @@ class EventController extends Controller
         }
     }
 
+
     public function eventUpdate(Request $request){
         
         if($request->event_id == null){
             Alert::error('Modification de rendez-vous','Choisissez le rendez-vous a modifier avant de cliquer sur le button Modifier!');
             return redirect('/');
         }
+
         $event = Event::find($request->event_id);
         
         $event->title = $request->title;
@@ -175,8 +177,23 @@ class EventController extends Controller
         Alert::success('Modification de rendez-vous', ' RDV Modifié avec succes!');
         return redirect()->back();
     }
+
+    public function eventDelete(Request $request){
+
+        if($request->eventId == null){
+            Alert::error('Erreur de Supression', 'Merci de selectionner le rdv avant cliquer sur le button Supprimer !');
+        }
+
+        try{
+        $event = Event::findOrFail($request->eventId);
+        if($event->delete()){
+            Alert::success('Supression de RDV', ' RDV Supprimé avec succes!');
+        }
+        }catch(Exception $e){
+            Alert::error('Erreur de Supression', 'un probleme est survenu !'.$e->getMessage());
+        }
+
+        return redirect()->back();
+
+    }
 }
-
-
-
-
