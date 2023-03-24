@@ -169,12 +169,12 @@
                                     <span key="t-starter-page">{!! Auth::user()->email == 'eva.mary@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Fatima' !!}</span>
                                 </a>
                             </li>
-                            <li class="mm-active">
+                            {{-- <li class="mm-active">
                                 <a href="{{ route('calendrier-vendor') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
                                     <span key="t-starter-page">{!! Auth::user()->email == 'jeanpierre@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Joao Pedro' !!}</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="mm-active">
                                 <a href="{{ route('calendrier-supervisor') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
@@ -185,6 +185,12 @@
                                 <a href="{{ route('calendrier-webmaster') }}" class="waves-effect active">
                                     <i class="bx bx-home-circle"></i>
                                     <span key="t-starter-page">{!! Auth::user()->email == 'lucie.peron@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Alicia' !!}</span>
+                                </a>
+                            </li>
+                            <li class="mm-active">
+                                <a href="{{ route('calendrier-vendor') }}" class="waves-effect active">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-starter-page">{!! Auth::user()->email == 'alan.bosser@onlinevisionmarket.com' ? '<b class="text-danger">Mon Calendrier</b>' : ' Calendrier Alan' !!}</span>
                                 </a>
                             </li>
                         </ul>
